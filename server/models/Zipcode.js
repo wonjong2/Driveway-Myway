@@ -20,6 +20,6 @@ const zipcodeSchema = new Schema({
   }
 });
 
-const Category = mongoose.model('Zipcode', zipcodeSchema);
+const Zipcode = mongoose.model('Zipcode', zipcodeSchema);
 
 module.exports = Zipcode;

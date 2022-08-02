@@ -40,6 +40,6 @@ const drivewaySchema = new Schema({
   }
 });
 
-const Product = mongoose.model('Driveway', drivewaySchema);
+const Driveway = mongoose.model('Driveway', drivewaySchema);
 
-module.exports = Product;
+module.exports = Driveway;
