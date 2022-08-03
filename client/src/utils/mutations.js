@@ -49,3 +49,48 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+// /* Adds Post Driveway menu */
+export const ADD_ZIPCODE = gql`
+  mutation addZipcode(
+    $zip:Int!
+    $lat: Float!
+    $lon: Float!
+    ) {
+      addZipcode(
+        zip:$zip
+        lat:$lat
+        lon:$lon) {
+          _id
+        }
+    }
+`;
+
+// /* Adds Post Driveway menu */
+export const POST_DRIVEWAY = gql`
+  mutation postDriveway(
+    $address: String!
+    $description: String
+    $rules: String
+    $image: String
+    $price: Int!
+    $availableDate: Date
+    $startTime: String!
+    $endTime: String!
+    $zipcode: ID!
+  ) {
+    postDriveway(
+      address: $address
+      description: $description
+      rules: $rules
+      image: $image
+      price: $price
+      availableDate: $availableDate
+      startTime: $startTime
+      endTime: $endTime
+      zipcode: $zipcode
+    ) {
+      _id
+    }
+  }
+`;

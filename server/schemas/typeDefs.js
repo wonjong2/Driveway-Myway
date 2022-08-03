@@ -1,6 +1,10 @@
 const { gql } = require('apollo-server-express');
 
+/* Adds Post Driveway menu */
+
 const typeDefs = gql`
+  scalar Date
+
   type Category {
     _id: ID
     name: String
@@ -43,6 +47,25 @@ const typeDefs = gql`
     user: User
   }
 
+  type Driveway {
+    _id: ID
+    address: String
+    description: String
+    rules: String
+    image: String
+    price: Int
+    availableDate: Date
+    stratTime: String
+    endTime: String
+    zipCode: Zipcode
+  }
+
+  type Zipcode {
+    zip: Int
+    lat: Float
+    lon: Float
+  }
+
   type Query {
     categories: [Category]
     products(category: ID, name: String): [Product]
@@ -59,6 +82,8 @@ const typeDefs = gql`
     updateUser(firstName: String, lastName: String, email: String, password: String): User
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
+    postDriveway(address: String!, description: String, rules: String, image: String, price: Int!, availableDate: Date, startTime: String!, endTime: String!, zipcode: ID!): Driveway
+    addZipcode(zip: Int!, lan: Float!, lon: Float!): Zipcode
   }
 `;
 

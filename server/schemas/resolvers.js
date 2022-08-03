@@ -2,6 +2,10 @@ const { AuthenticationError } = require('apollo-server-express');
 const { User, Product, Category, Order } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+// /* Adds Post Driveway menu */
+// const { GraphQLScalarType } = require('graphql');
+// const GraphQLDate = new GraphQLScalarType();
+const { GraphQLDate } = require('graphql-iso-date');
 
 const resolvers = {
   Query: {
@@ -151,7 +155,8 @@ const resolvers = {
 
       return { token, user };
     }
-  }
+  },
+  Date: GraphQLDate
 };
 
 module.exports = resolvers;
