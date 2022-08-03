@@ -24,6 +24,14 @@ export const QUERY_CHECKOUT = gql`
   }
 `;
 
+export const QUERY_CHECKOUT_INTENT =gql`
+  query getCheckoutIntent($products: [ID]!) {
+    checkoutIntent(products: $products) {
+      clientSecret
+    }
+  }
+`;
+
 export const QUERY_ALL_PRODUCTS = gql`
   {
     products {

@@ -34,6 +34,10 @@ const typeDefs = gql`
     session: ID
   }
 
+  type CheckoutIntent {
+    clientSecret: String
+  }
+
   type Auth {
     token: ID
     user: User
@@ -46,6 +50,7 @@ const typeDefs = gql`
     user: User
     order(_id: ID!): Order
     checkout(products: [ID]!): Checkout
+    checkoutIntent(products: [ID]!): CheckoutIntent
   }
 
   type Mutation {
