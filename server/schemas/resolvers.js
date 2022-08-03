@@ -52,6 +52,20 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+
+    checkoutIntent: async (parent, args, context) => {
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: 1500,
+        currency: "usd",
+        automatic_payment_methods: {
+          enabled: true,
+        },
+      });
+      return {
+        clientSecret: paymentIntent.client_secret,
+      }
+    },
+
     checkout: async (parent, args, context) => {
       const url = new URL(context.headers.referer).origin;
       const order = new Order({ products: args.products });

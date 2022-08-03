@@ -11,6 +11,7 @@ import { setContext } from '@apollo/client/link/context';
 import Home from './pages/Home';
 import Detail from './pages/Detail';
 import NoMatch from './pages/NoMatch';
+import Reservation from './pages/Reservation';
 //import Login from './pages/Login';
 //import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
@@ -64,6 +65,10 @@ function App() {
               <Route 
                 path="/orderHistory" 
                 element={<OrderHistory />} 
+              />
+              <Route 
+                path="/reservation" 
+                element={<Reservation />} 
               />
               <Route 
                 path="/products/:id" 
