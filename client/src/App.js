@@ -19,6 +19,9 @@ import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
 
+// /* Adds Post Driveway menu */
+import PostDriveway from './pages/PostDriveway';
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -46,9 +49,9 @@ function App() {
           <StoreProvider>
             <Navbar />
             <Routes>
-              <Route 
-                path="/" 
-                element={<Home />} 
+              <Route
+                path="/"
+                element={<Home />}
               />
               {/* <Route 
                 path="/login" 
@@ -58,25 +61,30 @@ function App() {
                 path="/signup" 
                 element={<Signup />} 
               /> */}
-              <Route 
-                path="/success" 
-                element={<Success />} 
+              <Route
+                path="/success"
+                element={<Success />}
               />
-              <Route 
-                path="/orderHistory" 
-                element={<OrderHistory />} 
+              <Route
+                path="/orderHistory"
+                element={<OrderHistory />}
               />
-              <Route 
-                path="/reservation" 
-                element={<Reservation />} 
+              <Route
+                path="/reservation"
+                element={<Reservation />}
               />
-              <Route 
-                path="/products/:id" 
-                element={<Detail />} 
+              <Route
+                path="/products/:id"
+                element={<Detail />}
               />
-              <Route 
-                path="*" 
-                element={<NoMatch />} 
+              {/* Adds Post Driveway menu */}
+              <Route
+                path="/post"
+                element={<PostDriveway />}
+              />
+              <Route
+                path="*"
+                element={<NoMatch />}
               />
             </Routes>
           </StoreProvider>
