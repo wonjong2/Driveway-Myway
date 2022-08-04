@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ProductItem from '../ProductItem';
+import Driveway from '../Driveway';
 import { useStoreContext } from '../../utils/GlobalState';
 import { UPDATE_PRODUCTS } from '../../utils/actions';
 import { useQuery } from '@apollo/client';
@@ -45,11 +45,11 @@ function ProductList() {
 
   return (
     <div className="my-2">
-      <h2>Our Products:</h2>
+      <h2>Available Driveways:</h2>
       {state.products.length ? (
         <div className="flex-row">
           {filterProducts().map((product) => (
-            <ProductItem
+            <Driveway
               key={product._id}
               _id={product._id}
               image={product.image}

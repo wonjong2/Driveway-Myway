@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Zipcode = require('./Zipcode');
+//const Zipcode = require('./Zipcode');
 
 const { Schema } = mongoose;
 

@@ -1,19 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { pluralize } from "../../utils/helpers"
+//import { pluralize } from "../../utils/helpers"
 import { useStoreContext } from "../../utils/GlobalState";
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
 
-function ProductItem(item) {
+function Driveway(item) {
   const [state, dispatch] = useStoreContext();
 
   const {
+    address,
+    description,
+    rules,
     image,
-    name,
     _id,
     price,
-    quantity
+    zipcode
   } = item;
 
   const { cart } = state
@@ -41,15 +43,15 @@ function ProductItem(item) {
 
   return (
     <div className="card px-1 py-1">
-      <Link to={`/products/${_id}`}>
+      <Link to={`/driveway/${_id}`}>
         <img
-          alt={name}
+          alt={address}
           src={`/images/${image}`}
         />
-        <p>{name}</p>
+        <p>{address}</p>
       </Link>
       <div>
-        <div>{quantity} {pluralize("item", quantity)} in stock</div>
+        <div>Found in: {zipcode}</div>
         <span>${price}</span>
       </div>
       <button onClick={addToCart}>Add to cart</button>
@@ -57,4 +59,4 @@ function ProductItem(item) {
   );
 }
 
-export default ProductItem;
+export default Driveway;
