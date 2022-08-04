@@ -1,25 +1,53 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
-import { POST_DRIVEWAY, ADD_ZIPCODE } from '../utils/mutations';
+import { POST_DRIVEWAY } from '../utils/mutations';
+import { QUERY_ZIPCODE } from '../utils/queries';
 
 function PostDriveway() {
-    const [formState, setFormState] = useState({ email: '', password: '' });
-    // const [postDriveway] = useMutation(POST_DRIVEWAY);
+    const [formState, setFormState] = useState({
+        address: '',
+        description: '',
+        rules: '',
+        image: '',
+        price: '',
+        availableDate: '',
+        stratTime: '',
+        endTime: '',
+        zipcode: '',
+    });
+
+    const [getLocation, { loading }] = useLazyQuery(QUERY_ZIPCODE);
+    const [postDriveway, { error }] = useMutation(POST_DRIVEWAY);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        // const mutationResponse = await addUser({
-        //     variables: {
-        //         email: formState.email,
-        //         password: formState.password,
-        //         firstName: formState.firstName,
-        //         lastName: formState.lastName,
-        //     },
-        // });
-        // const token = mutationResponse.data.addUser.token;
-        // Auth.login(token);
+
+        // get token
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+        if (!token) {
+            return false;
+        }
+
+        try {
+            const { data } = await getLocation({
+                variables: { zip: Number(formState.zipcode) }
+            });
+
+            console.log("data!!!: ", data);
+            formState.zipcode = data.zipcode._id;
+
+            const mutationRes = await postDriveway({
+                variables: { ...formState, price: Number(formState.price) }
+            });
+            console.log("data!!!: ", mutationRes.data);
+            window.location.assign('/');
+
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const handleChange = (event) => {
@@ -32,8 +60,6 @@ function PostDriveway() {
 
     return (
         <div className="container my-1">
-            {/* <Link to="/login">← Go to Login</Link> */}
-
             <h2>Post Driveway</h2>
             <form onSubmit={handleFormSubmit}>
                 <div className="flex-row space-between my-2">
@@ -41,7 +67,7 @@ function PostDriveway() {
                     <input
                         placeholder="Address"
                         name="address"
-                        type="address"
+                        type="text"
                         id="address"
                         onChange={handleChange}
                     />
@@ -51,7 +77,7 @@ function PostDriveway() {
                     <input
                         placeholder="Description"
                         name="description"
-                        type="description"
+                        type="text"
                         id="description"
                         onChange={handleChange}
                     />
@@ -61,7 +87,7 @@ function PostDriveway() {
                     <textarea
                         placeholder="Rules"
                         name="rules"
-                        type="rules"
+                        type="text"
                         id="rules"
                         onChange={handleChange}
                     />
@@ -71,7 +97,7 @@ function PostDriveway() {
                     <input
                         placeholder="$$"
                         name="price"
-                        type="price"
+                        type="number"
                         id="price"
                         onChange={handleChange}
                     />
@@ -80,7 +106,7 @@ function PostDriveway() {
                     <label htmlFor="date">Available Date:</label>
                     <input
                         placeholder="MM/DD/YYYY"
-                        name="date"
+                        name="availableDate"
                         type="date"
                         id="date"
                         onChange={handleChange}
@@ -90,8 +116,8 @@ function PostDriveway() {
                     <label htmlFor="start">Start Time:</label>
                     <input
                         placeholder="HH"
-                        name="start"
-                        type="start"
+                        name="startTime"
+                        type="time"
                         id="start"
                         onChange={handleChange}
                     />
@@ -100,8 +126,8 @@ function PostDriveway() {
                     <label htmlFor="end">End Time:</label>
                     <input
                         placeholder="HH"
-                        name="end"
-                        type="end"
+                        name="endTime"
+                        type="time"
                         id="end"
                         onChange={handleChange}
                     />
@@ -110,8 +136,8 @@ function PostDriveway() {
                     <label htmlFor="zip">ZIP Code:</label>
                     <input
                         placeholder="ZIP"
-                        name="zip"
-                        type="zip"
+                        name="zipcode"
+                        type="number"
                         id="zip"
                         onChange={handleChange}
                     />

@@ -1,7 +1,5 @@
 const { gql } = require('apollo-server-express');
 
-/* Adds Post Driveway menu */
-
 const typeDefs = gql`
   scalar Date
 
@@ -61,9 +59,10 @@ const typeDefs = gql`
   }
 
   type Zipcode {
-    zip: Int
-    lat: Float
-    lon: Float
+    _id: ID
+    zip: Int!
+    lat: Float!
+    lon: Float!
   }
 
   type Query {
@@ -74,6 +73,7 @@ const typeDefs = gql`
     order(_id: ID!): Order
     checkout(products: [ID]!): Checkout
     checkoutIntent(products: [ID]!): CheckoutIntent
+    zipcode(zip: Int!): Zipcode
   }
 
   type Mutation {
@@ -83,7 +83,7 @@ const typeDefs = gql`
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
     postDriveway(address: String!, description: String, rules: String, image: String, price: Int!, availableDate: Date, startTime: String!, endTime: String!, zipcode: ID!): Driveway
-    addZipcode(zip: Int!, lan: Float!, lon: Float!): Zipcode
+    addZipcode(zip: Int!, lat: Float!, lon: Float!): Zipcode
   }
 `;
 

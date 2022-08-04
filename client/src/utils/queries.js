@@ -24,7 +24,7 @@ export const QUERY_CHECKOUT = gql`
   }
 `;
 
-export const QUERY_CHECKOUT_INTENT =gql`
+export const QUERY_CHECKOUT_INTENT = gql`
   query getCheckoutIntent($products: [ID]!) {
     checkoutIntent(products: $products) {
       clientSecret
@@ -75,4 +75,13 @@ export const QUERY_USER = gql`
       }
     }
   }
+`;
+
+
+export const QUERY_ZIPCODE = gql`
+query getZipcode($zip: Int!) {
+  zipcode(zip: $zip) {
+    _id
+  }
+}
 `;
