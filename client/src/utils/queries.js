@@ -77,11 +77,19 @@ export const QUERY_USER = gql`
   }
 `;
 
-
-export const QUERY_ZIPCODE = gql`
-query getZipcode($zip: Int!) {
-  zipcode(zip: $zip) {
-    _id
+// Results Page
+export const QUERY_DRIVEWAYS = gql`
+  query serchDriveways($zip: Int!) {
+    driveways(zip: $zip) {
+      _id
+      address
+      description
+      rules
+      image
+      price
+      availableDate
+      startTime
+      endTime
+    }
   }
-}
 `;

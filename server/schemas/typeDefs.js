@@ -47,15 +47,15 @@ const typeDefs = gql`
 
   type Driveway {
     _id: ID
-    address: String
+    address: String!
     description: String
     rules: String
     image: String
-    price: Int
+    price: Float!
     availableDate: Date
-    stratTime: String
-    endTime: String
-    zipCode: Zipcode
+    startTime: String!
+    endTime: String!
+    zipCode: Zipcode!
   }
 
   type Zipcode {
@@ -73,7 +73,7 @@ const typeDefs = gql`
     order(_id: ID!): Order
     checkout(products: [ID]!): Checkout
     checkoutIntent(products: [ID]!): CheckoutIntent
-    zipcode(zip: Int!): Zipcode
+    driveways(zip: Int!): [Driveway]
   }
 
   type Mutation {
@@ -82,8 +82,7 @@ const typeDefs = gql`
     updateUser(firstName: String, lastName: String, email: String, password: String): User
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
-    postDriveway(address: String!, description: String, rules: String, image: String, price: Int!, availableDate: Date, startTime: String!, endTime: String!, zipcode: ID!): Driveway
-    addZipcode(zip: Int!, lat: Float!, lon: Float!): Zipcode
+    postDriveway(address: String!, description: String, rules: String, image: String, price: Float!, availableDate: Date, startTime: String!, endTime: String!, zipcode: ID!): Driveway
   }
 `;
 
