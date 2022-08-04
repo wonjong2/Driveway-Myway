@@ -1,10 +1,8 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Product, Category, Order } = require('../models');
+const { User, Product, Category, Order, Driveway, Zipcode } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 // /* Adds Post Driveway menu */
-// const { GraphQLScalarType } = require('graphql');
-// const GraphQLDate = new GraphQLScalarType();
 const { GraphQLDate } = require('graphql-iso-date');
 
 const resolvers = {
@@ -105,6 +103,11 @@ const resolvers = {
       });
 
       return { session: session.id };
+    },
+    zipcode: async (parent, args) => {
+      const zipcode = await Zipcode.findOne({ zip: args.zip });
+      console.log("zipcode: ", zipcode);
+      return zipcode?._id || 0;
     }
   },
   Mutation: {
@@ -154,6 +157,16 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+    postDriveway: async (parent, { address, description, rules, image, price, availableDate, startTime, endTime, zipcode }, context) => {
+      const driveway = await Driveway.create({ address, description, rules, image, price, availableDate, startTime, endTime, zipcode });
+      console.log("Driveway : ", driveway);
+      return driveway._id;
+    },
+    addZipcode: async (parent, { zip, lat, lon }) => {
+      const zipcode = await Zipcode.create({ zip, lat, lon });
+      console.log("Zipcode : ", zipcode);
+      return zipcode;
     }
   },
   Date: GraphQLDate

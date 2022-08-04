@@ -23,6 +23,9 @@ function AppNavbar() {
               <Nav.Link as={Link} to='/'>
                 Search For a Parking Spot
               </Nav.Link>
+
+              <Nav.Link as={Link} to='/post'>Post Driveway</Nav.Link>
+
               {/* if user is logged in show oderHistory and logout */}
               {Auth.loggedIn() ? (
                 <>
