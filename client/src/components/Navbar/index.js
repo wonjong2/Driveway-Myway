@@ -5,6 +5,7 @@ import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
 import SignUpForm from '../Signup';
 import LoginForm from '../Login';
 
+
 function AppNavbar() {
 
   // set modal display state
@@ -21,13 +22,17 @@ function AppNavbar() {
           <Navbar.Collapse id='navbar'>
             <Nav className='ml-auto'>
               <Nav.Link as={Link} to='/'>
-                Search For a Parking Spot
+                Home
               </Nav.Link>
+              
               {/* if user is logged in show oderHistory and logout */}
               {Auth.loggedIn() ? (
                 <>
                   <Nav.Link as={Link} to='/oderHistory'>
                     Order History
+                  </Nav.Link>
+                  <Nav.Link as={Link} to='/oderHistory'>
+                    My Profile
                   </Nav.Link>
                   {/* Adds Post Driveway menu */}
                   <Nav.Link as={Link} to='/post'>Post Driveway</Nav.Link>
