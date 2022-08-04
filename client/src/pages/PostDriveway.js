@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useLazyQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { POST_DRIVEWAY } from '../utils/mutations';
-import { QUERY_ZIPCODE } from '../utils/queries';
 
 function PostDriveway() {
     const [formState, setFormState] = useState({
@@ -18,7 +16,6 @@ function PostDriveway() {
         zipcode: '',
     });
 
-    const [getLocation, { loading }] = useLazyQuery(QUERY_ZIPCODE);
     const [postDriveway, { error }] = useMutation(POST_DRIVEWAY);
 
     const handleFormSubmit = async (event) => {
@@ -32,13 +29,6 @@ function PostDriveway() {
         }
 
         try {
-            const { data } = await getLocation({
-                variables: { zip: Number(formState.zipcode) }
-            });
-
-            console.log("data!!!: ", data);
-            formState.zipcode = data.zipcode._id;
-
             const mutationRes = await postDriveway({
                 variables: { ...formState, price: Number(formState.price) }
             });
