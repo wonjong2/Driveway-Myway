@@ -18,7 +18,7 @@ const typeDefs = gql`
     image: String
     price: Float
     availableDate: Date
-    stratTime: String
+    startTime: String
     endTime: String
     zipcode: Zipcode
   }
