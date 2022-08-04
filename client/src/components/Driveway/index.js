@@ -35,7 +35,7 @@ function Driveway(item) {
     } else {
       dispatch({
         type: ADD_TO_CART,
-        product: { ...item, purchaseQuantity: 1 }
+        driveway: { ...item, purchaseQuantity: 1 }
       });
       idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
     }
@@ -54,7 +54,7 @@ function Driveway(item) {
         <div>Found in: {zipcode}</div>
         <span>${price}</span>
       </div>
-      <button onClick={addToCart}>Add to cart</button>
+      <button onClick={addToCart}>Reserve this Parking Stall</button>
     </div>
   );
 }

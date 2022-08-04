@@ -74,7 +74,7 @@ function App() {
                 element={<Reservation />}
               />
               <Route
-                path="/products/:id"
+                path="/driveway/:id"
                 element={<Detail />}
               />
               {/* Adds Post Driveway menu */}

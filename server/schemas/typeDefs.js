@@ -20,7 +20,7 @@ const typeDefs = gql`
     availableDate: Date
     startTime: String
     endTime: String
-    zipcode: Zipcode
+    zipcode: Zipcode!
   }
 
  type Reservation {
