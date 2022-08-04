@@ -2,7 +2,7 @@ import React from "react";
 import auth from "../utils/auth";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
-import { Elements, PaymentElement } from "@stripe/react-stripe-js";
+//import { Elements, PaymentElement } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@apollo/client";
 import { QUERY_CHECKOUT_INTENT } from "../utils/queries";
@@ -67,7 +67,7 @@ const Reservation = () => {
           {loggedIn && (
             <>
               <h3>Hi, you're logged in</h3>
-              {clientSecret && (
+              {/* {clientSecret && (
                 <Elements
                   options={{
                     clientSecret,
@@ -82,7 +82,7 @@ const Reservation = () => {
                     <PaymentElement id="payment-element" />
                   </form>
                 </Elements>
-              )}
+              )} */}
             </>
           )}
           {!loggedIn && (
