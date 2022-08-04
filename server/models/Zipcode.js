@@ -5,19 +5,25 @@ const { Schema } = mongoose;
 const zipcodeSchema = new Schema({
   zip: {
     type: Number,
-    required: true,
     trim: true
   },
   lat: {
     type: Number,
-    required: true,
     trim: true
   },
-  lon: {
+  lng: {
     type: Number,
-    required: true,
     trim: true
-  }
+  },
+  city: {
+    type: String
+  },
+  state_id: {
+    type: String
+  },
+  state_name: {
+    type: String
+  },
 });
 
 const Zipcode = mongoose.model('Zipcode', zipcodeSchema);
