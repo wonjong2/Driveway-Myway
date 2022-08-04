@@ -85,3 +85,19 @@ query getZipcode($zip: Int!) {
   }
 }
 `;
+export const QUERY_ALL_DRIVEWAYS = gql`
+    {
+      driveways {
+      address
+      description
+      rules
+      image
+      price
+      startTime
+      endTime
+      zipcode {
+        _id
+      }
+    }
+  }
+`;

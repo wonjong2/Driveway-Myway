@@ -74,6 +74,7 @@ const typeDefs = gql`
     checkout(products: [ID]!): Checkout
     checkoutIntent(products: [ID]!): CheckoutIntent
     zipcode(zip: Int!): Zipcode
+    driveways: [Driveway]
   }
 
   type Mutation {

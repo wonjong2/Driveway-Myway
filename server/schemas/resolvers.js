@@ -108,7 +108,10 @@ const resolvers = {
       const zipcode = await Zipcode.findOne({ zip: args.zip });
       console.log("zipcode: ", zipcode);
       return zipcode?._id || 0;
-    }
+    },
+    driveways: async () => {
+      return await Driveway.find();
+    },
   },
   Mutation: {
     addUser: async (parent, args) => {
