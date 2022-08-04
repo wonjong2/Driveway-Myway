@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
+
 const Reservation = require('./Reservation');
 
 const userSchema = new Schema({

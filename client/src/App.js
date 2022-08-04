@@ -11,12 +11,16 @@ import { setContext } from '@apollo/client/link/context';
 import Home from './pages/Home';
 import Detail from './pages/Detail';
 import NoMatch from './pages/NoMatch';
+import Reservation from './pages/Reservation';
 //import Login from './pages/Login';
 //import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
 import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
+
+// /* Adds Post Driveway menu */
+import PostDriveway from './pages/PostDriveway';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -45,9 +49,9 @@ function App() {
           <StoreProvider>
             <Navbar />
             <Routes>
-              <Route 
-                path="/" 
-                element={<Home />} 
+              <Route
+                path="/"
+                element={<Home />}
               />
               {/* <Route 
                 path="/login" 
@@ -57,21 +61,30 @@ function App() {
                 path="/signup" 
                 element={<Signup />} 
               /> */}
-              <Route 
-                path="/success" 
-                element={<Success />} 
+              <Route
+                path="/success"
+                element={<Success />}
               />
-              <Route 
-                path="/orderHistory" 
-                element={<OrderHistory />} 
+              <Route
+                path="/orderHistory"
+                element={<OrderHistory />}
               />
-              <Route 
-                path="/products/:id" 
-                element={<Detail />} 
+              <Route
+                path="/reservation"
+                element={<Reservation />}
               />
-              <Route 
-                path="*" 
-                element={<NoMatch />} 
+              <Route
+                path="/products/:id"
+                element={<Detail />}
+              />
+              {/* Adds Post Driveway menu */}
+              <Route
+                path="/post"
+                element={<PostDriveway />}
+              />
+              <Route
+                path="*"
+                element={<NoMatch />}
               />
             </Routes>
           </StoreProvider>

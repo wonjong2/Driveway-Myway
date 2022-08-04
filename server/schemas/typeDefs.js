@@ -1,6 +1,8 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+  scalar Date
+
   type Category {
     _id: ID
     name: String
@@ -34,9 +36,33 @@ const typeDefs = gql`
     session: ID
   }
 
+  type CheckoutIntent {
+    clientSecret: String
+  }
+
   type Auth {
     token: ID
     user: User
+  }
+
+  type Driveway {
+    _id: ID
+    address: String
+    description: String
+    rules: String
+    image: String
+    price: Int
+    availableDate: Date
+    stratTime: String
+    endTime: String
+    zipCode: Zipcode
+  }
+
+  type Zipcode {
+    _id: ID
+    zip: Int!
+    lat: Float!
+    lon: Float!
   }
 
   type Query {
@@ -46,6 +72,8 @@ const typeDefs = gql`
     user: User
     order(_id: ID!): Order
     checkout(products: [ID]!): Checkout
+    checkoutIntent(products: [ID]!): CheckoutIntent
+    zipcode(zip: Int!): Zipcode
   }
 
   type Mutation {
@@ -54,6 +82,8 @@ const typeDefs = gql`
     updateUser(firstName: String, lastName: String, email: String, password: String): User
     updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
+    postDriveway(address: String!, description: String, rules: String, image: String, price: Int!, availableDate: Date, startTime: String!, endTime: String!, zipcode: ID!): Driveway
+    addZipcode(zip: Int!, lat: Float!, lon: Float!): Zipcode
   }
 `;
 
