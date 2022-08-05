@@ -51,6 +51,29 @@ const typeDefs = gql`
     user: User
   }
 
+  type Driveway {
+    _id: ID
+    address: String!
+    description: String
+    rules: String
+    image: String
+    price: Float!
+    availableDate: Date
+    startTime: String!
+    endTime: String!
+    zipcode: Zipcode!
+  }
+
+  type Zipcode {
+    _id: ID
+    zip: Int!
+    lat: Float!
+    lng: Float!
+    city: String
+    state_id: String
+    state_name: String
+  }
+
   type Query {
     zipcodes: [Zipcode]
     alldriveways: [Driveway]
