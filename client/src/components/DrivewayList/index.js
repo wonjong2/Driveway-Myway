@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import ProductItem from '../ProductItem';
+import Driveway from '../Driveway';
 import { useStoreContext } from '../../utils/GlobalState';
 import { UPDATE_PRODUCTS } from '../../utils/actions';
 import { useQuery } from '@apollo/client';
-import { QUERY_PRODUCTS } from '../../utils/queries';
+import { QUERY_ALL_DRIVEWAYS } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
 import spinner from '../../assets/spinner.gif';
 
@@ -12,16 +12,16 @@ function ProductList() {
 
   const { currentCategory } = state;
 
-  const { loading, data } = useQuery(QUERY_PRODUCTS);
-
+  const { loading, data } = useQuery(QUERY_ALL_DRIVEWAYS);
+  
   useEffect(() => {
     if (data) {
       dispatch({
         type: UPDATE_PRODUCTS,
-        products: data.products,
+        products: data.alldriveways,
       });
-      data.products.forEach((product) => {
-        idbPromise('products', 'put', product);
+      data.alldriveways.forEach((driveway) => {
+        idbPromise('products', 'put', driveway);
       });
     } else if (!loading) {
       idbPromise('products', 'get').then((products) => {
@@ -39,23 +39,23 @@ function ProductList() {
     }
 
     return state.products.filter(
-      (product) => product.category._id === currentCategory
+      (driveway) => driveway.category._id === currentCategory
     );
   }
 
   return (
     <div className="my-2">
-      <h2>Our Products:</h2>
+      <h2>Available Driveways:</h2>
       {state.products.length ? (
         <div className="flex-row">
-          {filterProducts().map((product) => (
-            <ProductItem
-              key={product._id}
-              _id={product._id}
-              image={product.image}
-              name={product.name}
-              price={product.price}
-              quantity={product.quantity}
+          {filterProducts().map((driveway) => (
+            <Driveway
+              key={driveway._id}
+              _id={driveway._id}
+              image={driveway.image}
+              name={driveway.name}
+              price={driveway.price}
+              quantity={driveway.quantity}
             />
           ))}
         </div>

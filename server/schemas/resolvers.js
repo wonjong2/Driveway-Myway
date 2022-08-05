@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Product, Category, Order, Driveway, Zipcode } = require('../models');
+const { User, Reservation, Driveway, Zipcode } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 // /* Adds Post Driveway menu */
@@ -7,49 +7,40 @@ const { GraphQLDate } = require('graphql-iso-date');
 
 const resolvers = {
   Query: {
-    categories: async () => {
-      return await Category.find();
+    zipcodes: async () => {
+      return await Zipcode.find();s
     },
-    products: async (parent, { category, name }) => {
-      const params = {};
 
-      if (category) {
-        params.category = category;
-      }
-
-      if (name) {
-        params.name = {
-          $regex: name
-        };
-      }
-
-      return await Product.find(params).populate('category');
+    alldriveways: async (parent) => {
+      return await Driveway.find().populate('zipcode', 'isReserved');
     },
-    product: async (parent, { _id }) => {
-      return await Product.findById(_id).populate('category');
+    // Results Page
+    driveways: async (parent, { zip }) => {
+      const zipcodeId = await Zipcode.findOne({ zip });
+      return await Driveway.find({ zipcode: zipcodeId })
     },
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
-          path: 'orders.products',
-          populate: 'category'
+          path: 'reservations.driveway',
+          populate: 'zipcode'
         });
 
-        user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
+        user.reservations.sort((a, b) => b.purchaseDate - a.purchaseDate);
 
         return user;
       }
 
       throw new AuthenticationError('Not logged in');
     },
-    order: async (parent, { _id }, context) => {
+    reservation: async (parent, { _id }, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
-          path: 'orders.products',
-          populate: 'category'
+          path: 'reservations.driveway',
+          populate: 'zipcode'
         });
 
-        return user.orders.id(_id);
+        return user.reservations.id(_id);
       }
 
       throw new AuthenticationError('Not logged in');
@@ -104,12 +95,7 @@ const resolvers = {
 
       return { session: session.id };
     },
-    // Results Page
-    driveways: async (parent, { zip }) => {
-      const zipcodeId = await Zipcode.findOne({ zip });
-      return await Driveway.find({ zipcode: zipcodeId })
-    },
-    drivewayDetail: async (parent, { _id }) => {
+     drivewayDetail: async (parent, { _id }) => {
       return await Driveway.findById( _id ).populate('zipcode');
     }
   },
@@ -120,29 +106,12 @@ const resolvers = {
 
       return { token, user };
     },
-    addOrder: async (parent, { products }, context) => {
-      console.log(context);
-      if (context.user) {
-        const order = new Order({ products });
-
-        await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
-
-        return order;
-      }
-
-      throw new AuthenticationError('Not logged in');
-    },
     updateUser: async (parent, args, context) => {
       if (context.user) {
         return await User.findByIdAndUpdate(context.user._id, args, { new: true });
       }
 
       throw new AuthenticationError('Not logged in');
-    },
-    updateProduct: async (parent, { _id, quantity }) => {
-      const decrement = Math.abs(quantity) * -1;
-
-      return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });

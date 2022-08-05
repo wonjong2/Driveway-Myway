@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-// import Auth from '../utils/auth'
 import { QUERY_DRIVEWAYS } from '../utils/queries';
 import DrivewayItem from '../components/DrivewayItem'
 import spinner from '../assets/spinner.gif';

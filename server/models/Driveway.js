@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
-const Zipcode = require('./Zipcode');
+//const Zipcode = require('./Zipcode');
 
 const { Schema } = mongoose;
+const User = require('./User')
 
 const drivewaySchema = new Schema({
   address: {
@@ -38,6 +39,11 @@ const drivewaySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Zipcode',
     required: true
+  },
+  isReserved: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: false
   }
 });
 
