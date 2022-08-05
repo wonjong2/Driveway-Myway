@@ -14,8 +14,6 @@ function SearchResults() {
 
     if (loading) {
         return <div>Loading...</div>;
-    } else {
-        console.log("Searched Data!!!", data);
     }
 
     return (

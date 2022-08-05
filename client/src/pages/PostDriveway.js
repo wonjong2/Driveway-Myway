@@ -30,9 +30,8 @@ function PostDriveway() {
 
         try {
             const mutationRes = await postDriveway({
-                variables: { ...formState, price: Number(formState.price) }
+                variables: { ...formState, price: Number(formState.price), image: formState.image ? formState.image : 'default.jpg' }
             });
-            console.log("data!!!: ", mutationRes.data);
             window.location.assign('/');
 
         } catch (error) {
