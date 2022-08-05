@@ -14,8 +14,6 @@ function ProductList() {
 
   const { loading, data } = useQuery(QUERY_ALL_DRIVEWAYS);
  
-  //const availableSpots = data.alldriveways.filter(driveway => driveway.isReserved == null);
-
   useEffect(() => {
     if (data) {
       dispatch({
@@ -37,6 +35,9 @@ function ProductList() {
 
   function filterProducts() {
     if (!currentCategory) {
+      //console.log(state.products)
+      const availableSpots = state.products.filter(driveway => driveway.isReserved == null);
+      console.log(availableSpots)
       return state.products;
     }
 
