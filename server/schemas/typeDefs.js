@@ -25,7 +25,7 @@ const typeDefs = gql`
 
  type Reservation {
     _id: ID
-    reservationDate: Data
+    reservationDate: Date
     driveway: Driveway
   }
 
@@ -55,7 +55,7 @@ const typeDefs = gql`
     driveways(zipcode: zip): [Driveway]
     driveway(_id: ID!): Driveway
     user: User
-    reservation(_id: ID!): reservation
+    reservation(_id: ID!): Reservation
     checkout(products: [ID]!): Checkout
     checkoutIntent(products: [ID]!): CheckoutIntent
   }

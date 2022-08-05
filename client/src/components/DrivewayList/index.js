@@ -20,8 +20,8 @@ function ProductList() {
         type: UPDATE_PRODUCTS,
         products: data.products,
       });
-      data.products.forEach((product) => {
-        idbPromise('products', 'put', product);
+      data.products.forEach((driveway) => {
+        idbPromise('products', 'put', driveway);
       });
     } else if (!loading) {
       idbPromise('products', 'get').then((products) => {
@@ -39,7 +39,7 @@ function ProductList() {
     }
 
     return state.products.filter(
-      (product) => product.category._id === currentCategory
+      (driveway) => driveway.category._id === currentCategory
     );
   }
 
@@ -48,14 +48,14 @@ function ProductList() {
       <h2>Available Driveways:</h2>
       {state.products.length ? (
         <div className="flex-row">
-          {filterProducts().map((product) => (
+          {filterProducts().map((driveway) => (
             <Driveway
-              key={product._id}
-              _id={product._id}
-              image={product.image}
-              name={product.name}
-              price={product.price}
-              quantity={product.quantity}
+              key={driveway._id}
+              _id={driveway._id}
+              image={driveway.image}
+              name={driveway.name}
+              price={driveway.price}
+              quantity={driveway.quantity}
             />
           ))}
         </div>
