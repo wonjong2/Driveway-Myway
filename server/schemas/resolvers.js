@@ -96,6 +96,9 @@ const resolvers = {
 
       return { session: session.id };
     },
+     drivewayDetail: async (parent, { _id }) => {
+      return await Driveway.findById( _id ).populate('zipcode');
+    }
   },
   Mutation: {
     addUser: async (parent, args) => {

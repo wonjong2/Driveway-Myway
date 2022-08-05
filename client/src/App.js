@@ -24,6 +24,9 @@ import PostDriveway from './pages/PostDriveway';
 /* Results Page */
 import SearchResults from './pages/SearchResults';
 
+/* Details Page */
+import ClickDetails from './pages/ClickDetails';
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -69,7 +72,7 @@ function App() {
               />
               <Route
                 path="/driveway/:id"
-                element={<Detail />}
+                element={<ClickDetails />}
               />
               {/* Adds Post Driveway menu */}
               <Route

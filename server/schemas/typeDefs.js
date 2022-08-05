@@ -58,6 +58,7 @@ const typeDefs = gql`
     reservation(_id: ID!): Reservation
     checkout(products: [ID]!): Checkout
     checkoutIntent(products: [ID]!): CheckoutIntent
+    drivewayDetail(_id: ID!): Driveway 
   }
 
   type Mutation {
