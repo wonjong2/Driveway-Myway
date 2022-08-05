@@ -7,7 +7,7 @@ const typeDefs = gql`
     _id: ID
     zip: Int!
     lat: Float!
-    lon: Float!
+    lng: Float!
   }
 
   type Driveway {

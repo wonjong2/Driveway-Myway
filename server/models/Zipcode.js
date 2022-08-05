@@ -12,7 +12,7 @@ const zipcodeSchema = new Schema({
     type: Number,
     trim: true
   },
-  lon: {
+  lng: {
     type: Number,
     trim: true
   },
