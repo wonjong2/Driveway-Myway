@@ -18,8 +18,11 @@ import { StoreProvider } from './utils/GlobalState';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
 
-// /* Adds Post Driveway menu */
+// Adds Post Driveway menu
 import PostDriveway from './pages/PostDriveway';
+
+/* Results Page */
+import SearchResults from './pages/SearchResults';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -72,6 +75,11 @@ function App() {
               <Route
                 path="/post"
                 element={<PostDriveway />}
+              />
+              {/* Results Page */}
+              <Route
+                path="/results/:zipcode"
+                element={<SearchResults />}
               />
               <Route
                 path="*"

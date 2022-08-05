@@ -129,7 +129,8 @@ const resolvers = {
       return { token, user };
     },
     postDriveway: async (parent, { address, description, rules, image, price, availableDate, startTime, endTime, zipcode }, context) => {
-      const driveway = await Driveway.create({ address, description, rules, image, price, availableDate, startTime, endTime, zipcode });
+      const zipcodeId = await Zipcode.findOne({ zip: zipcode });
+      const driveway = await Driveway.create({ address, description, rules, image, price, availableDate, startTime, endTime, zipcode: zipcodeId });
       console.log("Driveway : ", driveway);
       return driveway._id;
     },
