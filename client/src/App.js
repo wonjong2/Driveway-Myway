@@ -76,7 +76,7 @@ function App() {
                 element={<OrderHistory />}
               />
               <Route
-                path="/reservation"
+                path="/reservation/:id"
                 element={<Reservation />}
               />
               <Route

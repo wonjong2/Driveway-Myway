@@ -63,6 +63,9 @@ const typeDefs = gql`
     zip: Int!
     lat: Float!
     lng: Float!
+    city: String
+    state_id: String
+    state_name: String
   }
 
   type Query {

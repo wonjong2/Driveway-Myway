@@ -112,6 +112,8 @@ export const QUERY_SINGLE_DRIVEWAY = gql`
         zip
         lat
         lng
+        city
+        state_id
       }
     }
   }
