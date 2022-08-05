@@ -21,7 +21,7 @@ const typeDefs = gql`
     startTime: String
     endTime: String
     zipcode: Zipcode!
-    isReserved: ID
+    isReserved: User
   }
 
  type Reservation {
