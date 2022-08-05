@@ -1,15 +1,18 @@
 import { gql } from '@apollo/client';
 
-export const QUERY_PRODUCTS = gql`
-  query getProducts($category: ID) {
-    products(category: $category) {
+export const QUERY_DRIVEWAYS = gql`
+  query getDriveways($zip: zip) {
+    products(zipcode: $zip) {
       _id
-      name
+      address
       description
-      price
-      quantity
+      rules
       image
-      category {
+      price
+      availableDate
+      startTime
+      endTime
+      zipcode {
         _id
       }
     }
