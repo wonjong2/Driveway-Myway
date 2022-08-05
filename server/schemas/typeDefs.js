@@ -8,6 +8,9 @@ const typeDefs = gql`
     zip: Int!
     lat: Float!
     lng: Float!
+    city: String
+    state_id: String
+    state_name: String
   }
 
   type Driveway {
@@ -23,8 +26,8 @@ const typeDefs = gql`
     zipcode: Zipcode!
     isReserved: User
   }
-
- type Reservation {
+  
+  type Reservation {
     _id: ID
     reservationDate: Date
     driveway: Driveway
@@ -50,30 +53,7 @@ const typeDefs = gql`
     token: ID
     user: User
   }
-
-  type Driveway {
-    _id: ID
-    address: String!
-    description: String
-    rules: String
-    image: String
-    price: Float!
-    availableDate: Date
-    startTime: String!
-    endTime: String!
-    zipcode: Zipcode!
-  }
-
-  type Zipcode {
-    _id: ID
-    zip: Int!
-    lat: Float!
-    lng: Float!
-    city: String
-    state_id: String
-    state_name: String
-  }
-
+  
   type Query {
     zipcodes: [Zipcode]
     alldriveways: [Driveway]
