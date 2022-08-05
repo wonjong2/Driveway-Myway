@@ -15,7 +15,7 @@ function Driveway(item) {
     image,
     _id,
     price,
-    zipcode
+    zipcode,
   } = item;
 
   const { cart } = state

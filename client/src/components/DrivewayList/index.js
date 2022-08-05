@@ -35,6 +35,7 @@ function ProductList() {
 
   function filterProducts() {
     if (!currentCategory) {
+      console.log(state.products)
       return state.products;
     }
 
