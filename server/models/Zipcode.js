@@ -5,13 +5,14 @@ const { Schema } = mongoose;
 const zipcodeSchema = new Schema({
   zip: {
     type: Number,
+    required: true,
     trim: true
   },
   lat: {
     type: Number,
     trim: true
   },
-  lng: {
+  lon: {
     type: Number,
     trim: true
   },

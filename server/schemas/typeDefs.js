@@ -3,25 +3,30 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   scalar Date
 
-  type Category {
+  type Zipcode {
     _id: ID
-    name: String
+    zip: Int!
+    lat: Float!
+    lon: Float!
   }
 
-  type Product {
+  type Driveway {
     _id: ID
-    name: String
+    address: String!
     description: String
+    rules: String
     image: String
-    quantity: Int
     price: Float
-    category: Category
+    availableDate: Date
+    startTime: String
+    endTime: String
+    zipcode: Zipcode!
   }
 
-  type Order {
+ type Reservation {
     _id: ID
-    purchaseDate: String
-    products: [Product]
+    reservationDate: Date
+    driveway: Driveway
   }
 
   type User {
@@ -29,7 +34,7 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     email: String
-    orders: [Order]
+    reservations: [Reservation]
   }
 
   type Checkout {
@@ -45,43 +50,21 @@ const typeDefs = gql`
     user: User
   }
 
-  type Driveway {
-    _id: ID
-    address: String!
-    description: String
-    rules: String
-    image: String
-    price: Float!
-    availableDate: Date
-    startTime: String!
-    endTime: String!
-    zipcode: Zipcode!
-  }
-
-  type Zipcode {
-    _id: ID
-    zip: Int!
-    lat: Float!
-    lng: Float!
-  }
-
   type Query {
-    categories: [Category]
-    products(category: ID, name: String): [Product]
-    product(_id: ID!): Product
+    zipcodes: [Zipcode]
+    alldriveways: [Driveway]
+    driveways(zip: Int!): [Driveway]
     user: User
-    order(_id: ID!): Order
+    reservation(_id: ID!): Reservation
     checkout(products: [ID]!): Checkout
     checkoutIntent(products: [ID]!): CheckoutIntent
-    driveways(zip: Int!): [Driveway]
     drivewayDetail(_id: ID!): Driveway 
   }
 
   type Mutation {
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    addOrder(products: [ID]!): Order
+    addReservation(driveway: ID!): Reservation
     updateUser(firstName: String, lastName: String, email: String, password: String): User
-    updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
     postDriveway(address: String!, description: String, rules: String, image: String, price: Float!, availableDate: Date, startTime: String!, endTime: String!, zipcode: ID!): Driveway
   }
