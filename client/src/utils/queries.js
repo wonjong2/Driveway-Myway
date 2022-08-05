@@ -93,3 +93,26 @@ export const QUERY_DRIVEWAYS = gql`
     }
   }
 `;
+
+// Details Page
+export const QUERY_SINGLE_DRIVEWAY = gql`
+  query searchSingleDriveway($_id: ID!) {
+    drivewayDetail(_id: $_id) {
+      _id
+      address
+      description
+      rules
+      image
+      price
+      availableDate
+      startTime
+      endTime
+      zipcode {
+        _id
+        zip
+        lat
+        lng
+      }
+    }
+  }
+`;

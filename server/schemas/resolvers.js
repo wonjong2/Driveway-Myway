@@ -108,6 +108,9 @@ const resolvers = {
     driveways: async (parent, { zip }) => {
       const zipcodeId = await Zipcode.findOne({ zip });
       return await Driveway.find({ zipcode: zipcodeId })
+    },
+    drivewayDetail: async (parent, { _id }) => {
+      return await Driveway.findById( _id ).populate('zipcode');
     }
   },
   Mutation: {

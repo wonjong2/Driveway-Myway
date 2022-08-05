@@ -55,14 +55,14 @@ const typeDefs = gql`
     availableDate: Date
     startTime: String!
     endTime: String!
-    zipCode: Zipcode!
+    zipcode: Zipcode!
   }
 
   type Zipcode {
     _id: ID
     zip: Int!
     lat: Float!
-    lon: Float!
+    lng: Float!
   }
 
   type Query {
@@ -74,6 +74,7 @@ const typeDefs = gql`
     checkout(products: [ID]!): Checkout
     checkoutIntent(products: [ID]!): CheckoutIntent
     driveways(zip: Int!): [Driveway]
+    drivewayDetail(_id: ID!): Driveway 
   }
 
   type Mutation {
