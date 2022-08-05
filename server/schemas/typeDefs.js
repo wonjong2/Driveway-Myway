@@ -52,8 +52,8 @@ const typeDefs = gql`
 
   type Query {
     zipcodes: [Zipcode]
-    driveways(zipcode: zip): [Driveway]
-    driveway(_id: ID!): Driveway
+    alldriveways: [Driveway]
+    driveways(zip: Int!): [Driveway]
     user: User
     reservation(_id: ID!): Reservation
     checkout(products: [ID]!): Checkout
@@ -64,7 +64,6 @@ const typeDefs = gql`
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
     addReservation(driveway: ID!): Reservation
     updateUser(firstName: String, lastName: String, email: String, password: String): User
-    updateProduct(_id: ID!, quantity: Int!): Product
     login(email: String!, password: String!): Auth
     postDriveway(address: String!, description: String, rules: String, image: String, price: Int!, availableDate: Date, startTime: String!, endTime: String!, zipcode: ID!): Driveway
   }

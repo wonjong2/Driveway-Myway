@@ -11,15 +11,15 @@ const resolvers = {
       return await Zipcode.find();s
     },
 
-    driveways: async (parent, { zipcode }) => {
+    alldriveways: async (parent) => {
       
-      return await Driveway.find({ zipcode }).populate('zipcode');
+      return await Driveway.find().populate('zipcode');
     },
-
-    driveway: async (parent, { _id }) => {
-      return await Driveway.findById(_id).populate('zipcode');
+    // Results Page
+    driveways: async (parent, { zip }) => {
+      const zipcodeId = await Zipcode.findOne({ zip });
+      return await Driveway.find({ zipcode: zipcodeId })
     },
-
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
@@ -104,29 +104,12 @@ const resolvers = {
 
       return { token, user };
     },
-    addOrder: async (parent, { products }, context) => {
-      console.log(context);
-      if (context.user) {
-        const order = new Order({ products });
-
-        await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
-
-        return order;
-      }
-
-      throw new AuthenticationError('Not logged in');
-    },
     updateUser: async (parent, args, context) => {
       if (context.user) {
         return await User.findByIdAndUpdate(context.user._id, args, { new: true });
       }
 
       throw new AuthenticationError('Not logged in');
-    },
-    updateProduct: async (parent, { _id, quantity }) => {
-      const decrement = Math.abs(quantity) * -1;
-
-      return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -150,11 +133,6 @@ const resolvers = {
       console.log("Driveway : ", driveway);
       return driveway._id;
     },
-    addZipcode: async (parent, { zip, lat, lon }) => {
-      const zipcode = await Zipcode.create({ zip, lat, lon });
-      console.log("Zipcode : ", zipcode);
-      return zipcode;
-    }
   },
   Date: GraphQLDate
 };

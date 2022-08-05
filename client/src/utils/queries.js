@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const QUERY_DRIVEWAYS = gql`
-  query getDriveways($zip: zip) {
-    products(zipcode: $zip) {
+export const QUERY_ALL_DRIVEWAYS = gql`
+  {
+    alldriveways {
       _id
       address
       description

@@ -3,7 +3,7 @@ import Driveway from '../Driveway';
 import { useStoreContext } from '../../utils/GlobalState';
 import { UPDATE_PRODUCTS } from '../../utils/actions';
 import { useQuery } from '@apollo/client';
-import { QUERY_DRIVEWAYS } from '../../utils/queries';
+import { QUERY_ALL_DRIVEWAYS } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
 import spinner from '../../assets/spinner.gif';
 
@@ -12,15 +12,15 @@ function ProductList() {
 
   const { currentCategory } = state;
 
-  const { loading, data } = useQuery(QUERY_DRIVEWAYS);
-
+  const { loading, data } = useQuery(QUERY_ALL_DRIVEWAYS);
+  console.log(data)
   useEffect(() => {
     if (data) {
       dispatch({
         type: UPDATE_PRODUCTS,
-        products: data.products,
+        products: data.alldriveways,
       });
-      data.products.forEach((driveway) => {
+      data.alldriveways.forEach((driveway) => {
         idbPromise('products', 'put', driveway);
       });
     } else if (!loading) {
