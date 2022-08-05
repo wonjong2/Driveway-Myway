@@ -12,7 +12,6 @@ const resolvers = {
     },
 
     alldriveways: async (parent) => {
-      
       return await Driveway.find().populate('zipcode');
     },
     // Results Page

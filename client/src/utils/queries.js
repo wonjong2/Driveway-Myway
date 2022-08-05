@@ -15,6 +15,9 @@ export const QUERY_ALL_DRIVEWAYS = gql`
       zipcode {
         _id
       }
+      isReserved {
+        _id
+      }
     }
   }
 `;
