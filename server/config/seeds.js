@@ -23,7 +23,8 @@ db.once('open', async () => {
       price: 2.99,
       startTime: '12:00 PM',
       endTime: '5:00 PM',
-      zipcode: zipcodes[0]._id
+      zipcode: zipcodes[0]._id,
+      isReserved: null
     },
     {
       address: 'Canned Coffee',

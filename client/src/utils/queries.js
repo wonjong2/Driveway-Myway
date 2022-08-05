@@ -14,6 +14,10 @@ export const QUERY_ALL_DRIVEWAYS = gql`
       endTime
       zipcode {
         _id
+        zip
+      }
+      isReserved {
+        _id
       }
     }
   }

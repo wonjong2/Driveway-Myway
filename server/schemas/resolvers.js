@@ -12,8 +12,7 @@ const resolvers = {
     },
 
     alldriveways: async (parent) => {
-      
-      return await Driveway.find().populate('zipcode');
+      return await Driveway.find().populate('zipcode', 'isReserved');
     },
     // Results Page
     driveways: async (parent, { zip }) => {
