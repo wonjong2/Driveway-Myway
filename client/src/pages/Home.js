@@ -9,7 +9,6 @@ const Home = () => {
     <div className="container">
       <SearchBar />
       <DrivewayList />
-      
     </div>
   );
 };
