@@ -70,7 +70,7 @@ const typeDefs = gql`
     addReservation(driveway: ID!): Reservation
     updateUser(firstName: String, lastName: String, email: String, password: String): User
     login(email: String!, password: String!): Auth
-    postDriveway(address: String!, description: String, rules: String, image: Upload, price: Float!, availableDate: Date, startTime: String!, endTime: String!, zipcode: ID!): Driveway
+    postDriveway(address: String!, description: String, rules: String, image: String, price: Float!, availableDate: Date, startTime: String!, endTime: String!, zipcode: ID!): Driveway
   }
 `;
 
