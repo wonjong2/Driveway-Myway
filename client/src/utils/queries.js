@@ -22,6 +22,28 @@ query Alldriveways {
 }
 `;
 
+export const QUERY_MY_DRIVEWAYS = gql`
+query mydriveways {
+  mydriveways {
+    address
+    _id
+    description
+    zipcode {
+      _id
+    }
+    rules
+    image
+    price
+    availableDate
+    startTime
+    endTime
+    isReserved {
+      _id
+    }
+  }
+}
+`;
+
 export const QUERY_CHECKOUT = gql`
   query getCheckout($products: [ID]!) {
     checkout(products: $products) {

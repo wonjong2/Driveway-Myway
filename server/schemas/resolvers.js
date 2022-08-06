@@ -18,6 +18,16 @@ const resolvers = {
         }
       }).populate('zipcode', 'isReserved');
     },
+    mydriveways: async (parent, args, context) => {
+      if (context.user){
+        return await Driveway.find({
+          isReserved: {
+            $eq: context.user._id
+          }
+        }).populate('zipcode', 'isReserved');
+      }
+      throw new AuthenticationError('Not logged in');
+    },
     // Results Page
     driveways: async (parent, { zip }) => {
       const zipcodeId = await Zipcode.findOne({ zip });
