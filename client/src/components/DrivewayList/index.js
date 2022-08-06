@@ -14,11 +14,10 @@ function ProductList() {
 
   const { loading, data, error } = useQuery(QUERY_ALL_DRIVEWAYS);
   console.log(error)
-  
+
   useEffect(() => {
     console.log(data, loading)
     if (data) {
-      
       dispatch({
         type: UPDATE_PRODUCTS,
         products: data.alldriveways,
