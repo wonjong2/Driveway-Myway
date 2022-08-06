@@ -28,7 +28,7 @@ function AppNavbar() {
               {/* if user is logged in show oderHistory and logout */}
               {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={Link} to='/oderHistory'>
+                  <Nav.Link as={Link} to='/orderHistory'>
                     Order History
                   </Nav.Link>
                   {/* Adds Post Driveway menu */}

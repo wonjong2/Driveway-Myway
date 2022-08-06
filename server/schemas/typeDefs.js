@@ -57,6 +57,7 @@ const typeDefs = gql`
   type Query {
     zipcodes: [Zipcode]
     alldriveways: [Driveway]
+    mydriveways: [Driveway]
     driveways(zip: Int!): [Driveway]
     user: User
     reservation(_id: ID!): Reservation

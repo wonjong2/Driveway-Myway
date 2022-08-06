@@ -1,45 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { useQuery } from '@apollo/client';
-import { QUERY_USER } from '../utils/queries';
+import { useQuery } from "@apollo/client";
+import { QUERY_USER, QUERY_MY_DRIVEWAYS } from "../utils/queries";
+import Driveway from "../components/Driveway";
 
 function OrderHistory() {
-  const { data } = useQuery(QUERY_USER);
-  let user;
+  const { data: drivewayData, error } = useQuery(QUERY_MY_DRIVEWAYS);
+  const driveways = drivewayData?.mydriveways;
 
-  if (data) {
-    user = data.user;
-  }
+  console.log(driveways)
 
   return (
     <>
       <div className="container my-1">
-        <Link to="/">← Back to Products</Link>
+        <Link to="/">← Back to Driveways</Link>
 
-        {user ? (
+        {driveways ? (
           <>
-            <h2>
-              Order History for {user.firstName} {user.lastName}
-            </h2>
-            {user.orders.map((order) => (
-              <div key={order._id} className="my-2">
-                <h3>
-                  {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
-                </h3>
-                <div className="flex-row">
-                  {order.products.map(({ _id, image, name, price }, index) => (
-                    <div key={index} className="card px-1 py-1">
-                      <Link to={`/products/${_id}`}>
-                        <img alt={name} src={`/images/${image}`} />
-                        <p>{name}</p>
-                      </Link>
-                      <div>
-                        <span>${price}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+            <h2>Order History</h2>
+            {driveways.map((driveway) => (
+              <div key={driveway._id} className="my-2">
+                <Driveway
+                  key={driveway._id}
+                  _id={driveway._id}
+                  image={driveway.image}
+                  name={driveway.name}
+                  price={driveway.price}
+                  quantity={driveway.quantity}
+                  reserved
+                />
               </div>
             ))}
           </>

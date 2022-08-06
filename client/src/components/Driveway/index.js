@@ -5,8 +5,12 @@ import { useStoreContext } from "../../utils/GlobalState";
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
 
-function Driveway(item) {
+function Driveway({
+  reserved,
+  ...item
+}) {
   const [state, dispatch] = useStoreContext();
+  console.log(item)
 
   const {
     address,
@@ -54,7 +58,9 @@ function Driveway(item) {
         <div>Found in: {zipcode}</div>
         <span>${price}</span>
       </div>
-      <button onClick={addToCart}>Reserve this Parking Stall</button>
+      {!reserved && (
+        <button onClick={addToCart}>Reserve this Parking Stall</button>
+      )}
     </div>
   );
 }
