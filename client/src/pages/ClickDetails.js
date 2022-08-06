@@ -84,7 +84,7 @@ const handleReserveBtn = async (event) => {
         </div>
         <div style={{ height: '50vh', width: '100%' }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyCOrlRJ5GESPc0xJ_M4jed6dmOgwUSeHRM" }}
+        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_API_KEY }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
