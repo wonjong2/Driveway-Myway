@@ -38,7 +38,7 @@ const handleReserveBtn = async (event) => {
           lat: data.drivewayDetail.zipcode.lat,
           lng: data.drivewayDetail.zipcode.lng
         },
-        zoom: 10
+        zoom: 16
       };
     return (
         <div className="container" style={{ height: '60vh', width: '100%' }}>
@@ -82,7 +82,7 @@ const handleReserveBtn = async (event) => {
             </Row>
             </div>
         </div>
-        <div style={{ height: '40vh', width: '100%' }}>
+        <div style={{ height: '50vh', width: '100%' }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: "AIzaSyCOrlRJ5GESPc0xJ_M4jed6dmOgwUSeHRM" }}
         defaultCenter={defaultProps.center}
