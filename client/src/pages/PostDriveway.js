@@ -26,8 +26,31 @@ function PostDriveway() {
         endTime: '',
         zipcode: '',
     });
-
+    const [imageFile, setImageFile ] = useState("");
+    const [ url, setUrl ] = useState("");
     const [postDriveway, { error }] = useMutation(POST_DRIVEWAY);
+
+    const handleUploadImage = () => {
+        const data = new FormData()
+        data.append("file", imageFile)
+        data.append("upload_preset", "image_upload")
+        data.append("cloud_name","dgmjt3z0f")
+        fetch(" https://api.cloudinary.com/v1_1/dgmjt3z0f/image/upload",{
+            method:"post",
+            body: data
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            setUrl(data.url)
+            console.log(data.url)
+
+            setFormState({
+            ...formState,
+            image: data.url,
+        })
+        })
+        .catch(err => console.log(err));
+    }
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -148,12 +171,14 @@ function PostDriveway() {
                     <div className="input-group mx-auto mb-2">
                         <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Photo</span>
                         <input
-                            type="text"
+                            type="file"
                             className="form-control"
                             aria-describedby="basic-addon1"
                             name="image"
-                            id="image"
-                            onChange={handleChange} />
+                            id="image" />
+                        <button onClick={handleUploadImage}>Upload</button>
+                        <h1>Uploaded image will be displayed here</h1>
+                        <img src={url}/>
                     </div>
 
                     <div className="flex-column flex-end">

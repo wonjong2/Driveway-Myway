@@ -27,6 +27,9 @@ import SearchResults from './pages/SearchResults';
 /* Details Page */
 import ClickDetails from './pages/ClickDetails';
 
+/* User Upload */
+// import UserUpload from './pages/UserUpload';
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -83,6 +86,11 @@ function App() {
                 path="/post"
                 element={<PostDriveway />}
               />
+              {/* Adds Post Driveway menu */}
+              {/* <Route
+                path="/upload"
+                element={<UserUpload />}
+              /> */}
               {/* Results Page */}
               <Route
                 path="/results/:zipcode"
