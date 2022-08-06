@@ -1,0 +1,29 @@
+{
+  "name": "mern-shopping",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server --ignore client",
+    "develop": "concurrently \"cd server && npm run start\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "seed": "cd server && npm run seed",
+    "build": "cd client && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  },
+  "dependencies": {
+    "google-map-react": "^2.2.0",
+    "leaflet": "^1.8.0",
+    "mapbox-gl": "^2.9.2",
+    "pigeon-maps": "^0.21.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-leaflet": "^4.0.1",
+    "react-map-gl": "^7.0.18"
+  }
+}

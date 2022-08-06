@@ -1,0 +1,80 @@
+import { gql } from '@apollo/client';
+
+export const LOGIN = gql`
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+      user {
+        _id
+      }
+    }
+  }
+`;
+
+export const ADD_ORDER = gql`
+  mutation addOrder($products: [ID]!) {
+    addOrder(products: $products) {
+      purchaseDate
+      products {
+        _id
+        name
+        description
+        price
+        quantity
+        category {
+          name
+        }
+      }
+    }
+  }
+`;
+
+export const ADD_USER = gql`
+  mutation addUser(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $password: String!
+  ) {
+    addUser(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      password: $password
+    ) {
+      token
+      user {
+        _id
+      }
+    }
+  }
+`;
+
+// /* Adds Post Driveway menu */
+export const POST_DRIVEWAY = gql`
+  mutation postDriveway(
+    $address: String!
+    $description: String
+    $rules: String
+    $image: String
+    $price: Float!
+    $availableDate: Date
+    $startTime: String!
+    $endTime: String!
+    $zipcode: ID!
+  ) {
+    postDriveway(
+      address: $address
+      description: $description
+      rules: $rules
+      image: $image
+      price: $price
+      availableDate: $availableDate
+      startTime: $startTime
+      endTime: $endTime
+      zipcode: $zipcode
+    ) {
+      _id
+    }
+  }
+`;
