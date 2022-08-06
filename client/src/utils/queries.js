@@ -8,6 +8,7 @@ query Alldriveways {
     description
     zipcode {
       _id
+      zip
     }
     rules
     image

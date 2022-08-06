@@ -16,7 +16,7 @@ const resolvers = {
         isReserved: {
           $eq: null
         }
-      }).populate('zipcode', 'isReserved');
+      }).populate(['zipcode', 'isReserved']);
     },
     // Results Page
     driveways: async (parent, { zip }) => {
