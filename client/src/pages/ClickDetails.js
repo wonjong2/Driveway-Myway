@@ -69,7 +69,7 @@ const handleReserveBtn = async (event) => {
                 <Link to={`/driveway/${id}`}>
                     <img
                     alt={data.drivewayDetail.address}
-                    src={`/images/${data.drivewayDetail.image}`}
+                    src={`${data.drivewayDetail.image}`}
                     />
                 </Link>
                 </Col>

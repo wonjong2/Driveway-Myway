@@ -19,7 +19,7 @@ function DrivewayItem(item) {
             <Link to={`/driveway/${_id}`}>
                 <img
                     alt={address}
-                    src={`/images/${image}`}
+                    src={`${image}`}
                 />
                 <p>{address}</p>
             </Link>

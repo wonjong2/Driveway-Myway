@@ -58,7 +58,7 @@ const Reservation = () => {
                 height={106}
                 width={124}
                 className="rounded mr-3"
-                src={`/images/${driveway.image}`}
+                src={`${driveway.image}`}
               />
               <div className="media-body">
                 <p>{driveway.description ?? "Loading description"}</p>
