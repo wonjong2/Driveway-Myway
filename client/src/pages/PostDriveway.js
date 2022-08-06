@@ -26,13 +26,13 @@ function PostDriveway() {
         endTime: '',
         zipcode: '',
     });
-    const [imageFile, setImageFile ] = useState("");
+    const [fileimage, setImage ] = useState("");
     const [ url, setUrl ] = useState("");
     const [postDriveway, { error }] = useMutation(POST_DRIVEWAY);
 
     const handleUploadImage = () => {
         const data = new FormData()
-        data.append("file", imageFile)
+        data.append("file", fileimage)
         data.append("upload_preset", "image_upload")
         data.append("cloud_name","dgmjt3z0f")
         fetch(" https://api.cloudinary.com/v1_1/dgmjt3z0f/image/upload",{
@@ -41,9 +41,10 @@ function PostDriveway() {
         })
         .then(resp => resp.json())
         .then(data => {
-            setUrl(data.url)
             console.log(data.url)
 
+            setUrl(data.url)
+            
             setFormState({
             ...formState,
             image: data.url,
@@ -61,7 +62,7 @@ function PostDriveway() {
         if (!token) {
             return false;
         }
-
+        console.log(formState.image)
         try {
             const mutationRes = await postDriveway({
                 variables: { ...formState, price: Number(formState.price), image: formState.image ? formState.image : 'default.jpg' }
@@ -80,6 +81,10 @@ function PostDriveway() {
             [name]: value,
         });
     };
+    const handleUploadChange = (event) => {
+        setImage(event.target.files[0])
+    };
+
 
     return (
         <div className="container my-1">
@@ -175,7 +180,8 @@ function PostDriveway() {
                             className="form-control"
                             aria-describedby="basic-addon1"
                             name="image"
-                            id="image" />
+                            id="image"
+                            onChange={handleUploadChange} />
                         <button onClick={handleUploadImage}>Upload</button>
                         <h1>Uploaded image will be displayed here</h1>
                         <img src={url}/>
