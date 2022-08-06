@@ -1,34 +1,28 @@
 import React, { useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import Jumbotron from '../components/Jumbotron';
-import { ADD_ORDER } from '../utils/mutations';
-import { idbPromise } from '../utils/helpers';
+import { ADD_RESERVATION } from '../utils/mutations';
+import { useParams } from "react-router-dom";
 
 function Success() {
-  const [addOrder] = useMutation(ADD_ORDER);
+  const { id } = useParams();
 
-  useEffect(() => {
-    async function saveOrder() {
-      const cart = await idbPromise('cart', 'get');
-      const products = cart.map((item) => item._id);
+  const [addReservation] = useMutation(ADD_RESERVATION);
 
-      if (products.length) {
-        const { data } = await addOrder({ variables: { products } });
-        const productData = data.addOrder.products;
-
-        productData.forEach((item) => {
-          idbPromise('cart', 'delete', item);
-        });
+  useEffect(()=> {
+    addReservation({
+      variables: {
+        driveway: id
       }
+    })
+    setTimeout(() => {
+      window.location.assign('/');
+    }, 3000);
+  }, [])
 
-      setTimeout(() => {
-        window.location.assign('/');
-      }, 3000);
-    }
+      
 
-    saveOrder();
-  }, [addOrder]);
-
+  
   return (
     <div>
       <Jumbotron>

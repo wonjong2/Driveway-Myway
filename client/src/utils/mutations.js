@@ -11,6 +11,15 @@ export const LOGIN = gql`
   }
 `;
 
+export const ADD_RESERVATION = gql`
+  mutation addReservation($driveway: ID!) {
+    addReservation(driveway: $driveway) {
+      _id
+    reservationDate
+    }
+  }
+`;
+
 export const ADD_ORDER = gql`
   mutation addOrder($products: [ID]!) {
     addOrder(products: $products) {

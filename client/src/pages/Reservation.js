@@ -22,6 +22,7 @@ const Reservation = () => {
     },
   });
   const clientSecret = data?.checkoutIntent?.clientSecret;
+  const { id } = useParams();
 
   const handleSubmit = async (e, elements, stripe) => {
     e.preventDefault();
@@ -31,12 +32,12 @@ const Reservation = () => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/success`,
+        return_url: `${window.location.origin}/success/${id}`,
       },
     });
   };
 
-  const { id } = useParams();
+  
   const {
     loading,
     data: drivewayData,
