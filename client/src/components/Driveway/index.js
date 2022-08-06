@@ -10,7 +10,7 @@ function Driveway({
   ...item
 }) {
   const [state, dispatch] = useStoreContext();
-  console.log(item)
+  //console.log(item)
 
   const {
     address,
@@ -48,15 +48,12 @@ function Driveway({
   return (
     <div className="card px-1 py-1">
       <Link to={`/driveway/${_id}`}>
-        <img
-          alt={address}
-          src={`${image}`}
-        />
+        <img className="card-img-top" alt={address} src={`${image}`}/>
         <p>{address}</p>
       </Link>
       <div>
         <div>Found in: {zipcode}</div>
-        <span>${price}</span>
+        <span>${price} / hour</span>
       </div>
       {!reserved && (
         <button onClick={addToCart}>Reserve this Parking Stall</button>

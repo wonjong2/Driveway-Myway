@@ -16,7 +16,7 @@ const resolvers = {
         isReserved: {
           $eq: null
         }
-      }).populate('zipcode', 'isReserved');
+      }).populate(['zipcode', 'isReserved']);
     },
     mydriveways: async (parent, args, context) => {
       if (context.user){
