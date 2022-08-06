@@ -3,6 +3,17 @@ import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { POST_DRIVEWAY } from '../utils/mutations';
 
+const styles = {
+    form: {
+        width: '80%'
+    },
+    inputLabel: {
+        borderTopRightRadius: '0',
+        borderBottomRightRadius: '0',
+        borderRightWidth: '0',
+    }
+}
+
 function PostDriveway() {
     const [formState, setFormState] = useState({
         address: '',
@@ -50,141 +61,106 @@ function PostDriveway() {
     return (
         <div className="container my-1">
             <h2>Post Driveway</h2>
-            <form onSubmit={handleFormSubmit}>
-                <div className="input-group mx-auto">
-                    <span className="input-group-text" id="basic-addon1">Address</span>
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Address"
-                        aria-describedby="basic-addon1"
-                        name="address"
-                        id="address"
-                        onChange={handleChange} />
-                </div>
-                <div className="input-group mx-auto">
-                    <span className="input-group-text" id="basic-addon1">Description</span>
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Description"
-                        aria-describedby="basic-addon1"
-                        name="description"
-                        id="description"
-                        onChange={handleChange} />
-                </div>
-                {/* <div className="flex-column space-between my-2">
-                    <label htmlFor="address">Address:</label>
-                    <div className="input-group">
+            <div className="d-flex flex-column align-items-center">
+                <form style={styles.form} onSubmit={handleFormSubmit}>
+                    <div className="input-group mx-auto mt-3 mb-2">
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Address</span>
                         <input
-                            placeholder="Address"
+                            type="text"
+                            className="form-control"
+                            placeholder="Street, City, State"
+                            // aria-describedby="basic-addon1"
                             name="address"
-                            type="text"
                             id="address"
-                            onChange={handleChange}
-                        />
+                            onChange={handleChange} />
                     </div>
-                </div>
-                <div className="flex-column space-between my-2">
-                    <label htmlFor="description">Description:</label>
-                    <div className="input-group">
-                        <input
-                            placeholder="Description"
-                            name="description"
-                            type="text"
-                            id="description"
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
-                <div className="flex-column space-between my-2">
-                    <label htmlFor="rules">Rules:</label>
-                    <div className="input-group">
+                    <div className="input-group mx-auto mb-2">
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Description</span>
                         <textarea
-                            placeholder="Rules"
+                            type="text"
+                            className="form-control"
+                            placeholder="Short explanation of your driveway"
+                            aria-describedby="basic-addon1"
+                            name="description"
+                            id="description"
+                            onChange={handleChange} />
+                    </div>
+                    <div className="input-group mx-auto mb-2">
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Rules</span>
+                        <textarea
+                            type="text"
+                            className="form-control"
+                            aria-describedby="basic-addon1"
                             name="rules"
-                            type="text"
                             id="rules"
-                            onChange={handleChange}
-                        />
+                            onChange={handleChange} />
                     </div>
-                </div>
-                <div className="flex-column space-between my-2">
-                    <label htmlFor="price">Price($ per hour):</label>
-                    <div className="input-group">
+                    <div className="input-group mx-auto mb-2">
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Price ($/hour)</span>
                         <input
-                            placeholder="$$"
+                            type="number"
+                            className="form-control"
+                            aria-describedby="basic-addon1"
                             name="price"
-                            type="number"
                             id="price"
-                            onChange={handleChange}
-                        />
+                            onChange={handleChange} />
                     </div>
-                </div>
-                <div className="flex-column space-between my-2">
-                    <label htmlFor="date">Available Date:</label>
-                    <div className="input-group">
+                    <div className="input-group mx-auto mb-2">
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Available date</span>
                         <input
-                            placeholder="MM/DD/YYYY"
-                            name="availableDate"
                             type="date"
-                            id="date"
-                            onChange={handleChange}
-                        />
+                            className="form-control"
+                            aria-describedby="basic-addon1"
+                            name="availableDate"
+                            id="availableDate"
+                            onChange={handleChange} />
                     </div>
-                </div>
-                <div className="flex-column space-between my-2">
-                    <label htmlFor="start">Start Time:</label>
-                    <div className="input-group">
+                    <div className="input-group mx-auto mb-2">
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Start Time</span>
                         <input
-                            placeholder="HH"
+                            type="time"
+                            className="form-control"
+                            aria-describedby="basic-addon1"
                             name="startTime"
-                            type="time"
-                            id="start"
-                            onChange={handleChange}
-                        />
+                            id="startTime"
+                            onChange={handleChange} />
                     </div>
-                </div>
-                <div className="flex-column space-between my-2">
-                    <label htmlFor="end">End Time:</label>
-                    <div className="input-group">
+                    <div className="input-group mx-auto mb-2">
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">End Time</span>
                         <input
-                            placeholder="HH"
+                            type="time"
+                            className="form-control"
+                            aria-describedby="basic-addon1"
                             name="endTime"
-                            type="time"
-                            id="end"
-                            onChange={handleChange}
-                        />
+                            id="endTime"
+                            onChange={handleChange} />
                     </div>
-                </div>
-                <div className="flex-column space-between my-2">
-                    <label htmlFor="zip">ZIP Code:</label>
-                    <div className="input-group">
+                    <div className="input-group mx-auto mb-2">
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">ZIP Code</span>
                         <input
-                            placeholder="ZIP"
-                            name="zipcode"
                             type="number"
-                            id="zip"
-                            onChange={handleChange}
-                        />
+                            className="form-control"
+                            aria-describedby="basic-addon1"
+                            name="zipcode"
+                            id="zipcode"
+                            onChange={handleChange} />
                     </div>
-                </div>
-                <div className="flex-column space-between my-2">
-                    <label htmlFor="image">Photo:</label>
-                    <div className="input-group">
+                    <div className="input-group mx-auto mb-2">
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Photo</span>
                         <input
-                            placeholder="filename"
-                            name="image"
                             type="text"
+                            className="form-control"
+                            aria-describedby="basic-addon1"
+                            name="image"
                             id="image"
-                            onChange={handleChange}
-                        />
+                            onChange={handleChange} />
                     </div>
-                </div> */}
-                <div className="flex-column flex-end">
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
+
+                    <div className="flex-column flex-end">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }
