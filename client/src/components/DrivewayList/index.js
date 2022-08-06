@@ -12,10 +12,13 @@ function ProductList() {
 
   const { currentCategory } = state;
 
-  const { loading, data } = useQuery(QUERY_ALL_DRIVEWAYS);
-  
+  const { loading, data, error } = useQuery(QUERY_ALL_DRIVEWAYS);
+  console.log(error)
+  console.log(data)
   useEffect(() => {
+    console.log(data, loading)
     if (data) {
+      console.log(data)
       dispatch({
         type: UPDATE_PRODUCTS,
         products: data.alldriveways,
@@ -24,6 +27,7 @@ function ProductList() {
         idbPromise('products', 'put', driveway);
       });
     } else if (!loading) {
+      console.log(data)
       idbPromise('products', 'get').then((products) => {
         dispatch({
           type: UPDATE_PRODUCTS,
@@ -35,6 +39,7 @@ function ProductList() {
 
   function filterProducts() {
     if (!currentCategory) {
+      console.log(state.products)
       return state.products;
     }
 

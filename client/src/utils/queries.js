@@ -1,26 +1,25 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_ALL_DRIVEWAYS = gql`
-  {
-    alldriveways {
+query Alldriveways {
+  alldriveways {
+    address
+    _id
+    description
+    zipcode {
       _id
-      address
-      description
-      rules
-      image
-      price
-      availableDate
-      startTime
-      endTime
-      zipcode {
-        _id
-        zip
-      }
-      isReserved {
-        _id
-      }
+    }
+    rules
+    image
+    price
+    availableDate
+    startTime
+    endTime
+    isReserved {
+      _id
     }
   }
+}
 `;
 
 export const QUERY_CHECKOUT = gql`
