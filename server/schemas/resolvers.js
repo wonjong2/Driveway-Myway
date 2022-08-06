@@ -12,7 +12,11 @@ const resolvers = {
     },
 
     alldriveways: async (parent) => {
-      return await Driveway.find().populate('zipcode', 'isReserved');
+      return await Driveway.find({
+        isReserved: {
+          $eq: null
+        }
+      }).populate('zipcode', 'isReserved');
     },
     // Results Page
     driveways: async (parent, { zip }) => {
@@ -105,6 +109,14 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+    addReservation: async (parent, args, context) => {
+        if (context.user) {
+          return await Driveway.findByIdAndUpdate(args.driveway, {
+            isReserved: context.user._id
+          })
+        }
+        throw new AuthenticationError('Not logged in');
     },
     updateUser: async (parent, args, context) => {
       if (context.user) {
