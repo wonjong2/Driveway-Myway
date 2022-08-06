@@ -3,12 +3,12 @@ const { User, Reservation, Driveway, Zipcode } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 // /* Adds Post Driveway menu */
-const { GraphQLDate } = require('graphql-iso-date');
+// const { GraphQLDate } = require('graphql-iso-date');
 
 const resolvers = {
   Query: {
     zipcodes: async () => {
-      return await Zipcode.find();s
+      return await Zipcode.find(); s
     },
 
     alldriveways: async (parent) => {
@@ -99,8 +99,8 @@ const resolvers = {
 
       return { session: session.id };
     },
-     drivewayDetail: async (parent, { _id }) => {
-      return await Driveway.findById( _id ).populate('zipcode');
+    drivewayDetail: async (parent, { _id }) => {
+      return await Driveway.findById(_id).populate('zipcode');
     }
   },
   Mutation: {
@@ -149,7 +149,7 @@ const resolvers = {
       return driveway._id;
     },
   },
-  Date: GraphQLDate
+  // Date: GraphQLDate
 };
 
 module.exports = resolvers;
