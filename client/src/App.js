@@ -63,6 +63,10 @@ function App() {
                 element={<Success />}
               />
               <Route
+                path="/success/:id"
+                element={<Success />}
+              />
+              <Route
                 path="/orderHistory"
                 element={<OrderHistory />}
               />
