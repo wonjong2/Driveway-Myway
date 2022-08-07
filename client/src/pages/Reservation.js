@@ -37,7 +37,7 @@ const Reservation = () => {
     });
   };
 
-  
+
   const {
     loading,
     data: drivewayData,
@@ -58,7 +58,8 @@ const Reservation = () => {
                 height={106}
                 width={124}
                 className="rounded mr-3"
-                src={`${driveway.image}`}
+                // src={`${driveway.image}`}
+                src={driveway.image === 'default.jpg' ? `/images/${driveway.image}` : `${driveway.image}`}
               />
               <div className="media-body">
                 <p>{driveway.description ?? "Loading description"}</p>
@@ -119,10 +120,10 @@ const Reservation = () => {
                       >
                         <PaymentElement id="payment-element" />
                         <button
-                            className="btn btn-primary mt-3 w-100"
-                            type="submit"
+                          className="btn btn-primary mt-3 w-100"
+                          type="submit"
                         >
-                            Reserve
+                          Reserve
                         </button>
                       </form>
                     )}
