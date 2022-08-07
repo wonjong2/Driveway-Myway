@@ -40,8 +40,10 @@ function PostDriveway() {
         }
 
         try {
+            const dateValue = formState.availableDate.split('-');
+            const date = new Date(dateValue[0], dateValue[1] - 1, dateValue[2]);
             const mutationRes = await postDriveway({
-                variables: { ...formState, price: Number(formState.price), image: formState.image ? formState.image : 'default.jpg' }
+                variables: { ...formState, price: Number(formState.price), availableDate: date, image: formState.image ? formState.image : 'default.jpg' }
             });
             window.location.assign('/');
 
@@ -69,7 +71,7 @@ function PostDriveway() {
                             type="text"
                             className="form-control"
                             placeholder="Street, City, State"
-                            // aria-describedby="basic-addon1"
+                            aria-describedby="basic-addon1"
                             name="address"
                             id="address"
                             onChange={handleChange} />

@@ -2,8 +2,6 @@ const { AuthenticationError } = require('apollo-server-express');
 const { User, Reservation, Driveway, Zipcode } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
-// /* Adds Post Driveway menu */
-// const { GraphQLDate } = require('graphql-iso-date');
 
 const resolvers = {
   Query: {
@@ -159,7 +157,6 @@ const resolvers = {
       return driveway._id;
     },
   },
-  // Date: GraphQLDate
 };
 
 module.exports = resolvers;
