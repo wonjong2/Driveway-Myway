@@ -22,39 +22,56 @@ function PostDriveway() {
         image: '',
         price: '',
         availableDate: '',
-        stratTime: '',
+        startTime: '',
         endTime: '',
         zipcode: '',
     });
-    const [fileimage, setImage ] = useState("");
-    const [ url, setUrl ] = useState("");
+    const [fileimage, setImage] = useState("");
+    const [url, setUrl] = useState("");
     const [postDriveway, { error }] = useMutation(POST_DRIVEWAY);
 
     const handleUploadImage = () => {
         const data = new FormData()
         data.append("file", fileimage)
         data.append("upload_preset", "image_upload")
-        data.append("cloud_name","dgmjt3z0f")
-        fetch(" https://api.cloudinary.com/v1_1/dgmjt3z0f/image/upload",{
-            method:"post",
+        data.append("cloud_name", "dgmjt3z0f")
+        fetch(" https://api.cloudinary.com/v1_1/dgmjt3z0f/image/upload", {
+            method: "post",
             body: data
         })
-        .then(resp => resp.json())
-        .then(data => {
-            console.log(data.url)
+            .then(resp => resp.json())
+            .then(data => {
+                console.log(data.url)
 
-            setUrl(data.url)
-            
-            setFormState({
-            ...formState,
-            image: data.url,
-        })
-        })
-        .catch(err => console.log(err));
+                setUrl(data.url)
+
+                setFormState({
+                    ...formState,
+                    image: data.url,
+                })
+            })
+            .catch(err => console.log(err));
     }
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
+
+        if (
+            !(
+                formState.address &&
+                formState.price &&
+                formState.availableDate &&
+                formState.startTime &&
+                formState.endTime &&
+                formState.zipcode
+            )
+        ) {
+            return alert("Please enter all required information that has * mark");
+        }
+
+        if (formState.endTime <= formState.startTime) {
+            return alert("The end time must be later than the start time");
+        }
 
         // get token
         const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -87,14 +104,13 @@ function PostDriveway() {
         setImage(event.target.files[0])
     };
 
-
     return (
         <div className="container my-1">
             <h2>Post Driveway</h2>
             <div className="d-flex flex-column align-items-center">
                 <form style={styles.form} onSubmit={handleFormSubmit}>
                     <div className="input-group mx-auto mt-3 mb-2">
-                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Address</span>
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">*Address</span>
                         <input
                             type="text"
                             className="form-control"
@@ -126,7 +142,7 @@ function PostDriveway() {
                             onChange={handleChange} />
                     </div>
                     <div className="input-group mx-auto mb-2">
-                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Price ($/hour)</span>
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">*Price ($/hour)</span>
                         <input
                             type="number"
                             className="form-control"
@@ -136,7 +152,7 @@ function PostDriveway() {
                             onChange={handleChange} />
                     </div>
                     <div className="input-group mx-auto mb-2">
-                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Available date</span>
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">*Available date</span>
                         <input
                             type="date"
                             className="form-control"
@@ -146,7 +162,7 @@ function PostDriveway() {
                             onChange={handleChange} />
                     </div>
                     <div className="input-group mx-auto mb-2">
-                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Start Time</span>
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">*Start Time</span>
                         <input
                             type="time"
                             className="form-control"
@@ -156,7 +172,7 @@ function PostDriveway() {
                             onChange={handleChange} />
                     </div>
                     <div className="input-group mx-auto mb-2">
-                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">End Time</span>
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">*End Time</span>
                         <input
                             type="time"
                             className="form-control"
@@ -166,7 +182,7 @@ function PostDriveway() {
                             onChange={handleChange} />
                     </div>
                     <div className="input-group mx-auto mb-2">
-                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">ZIP Code</span>
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">*ZIP Code</span>
                         <input
                             type="number"
                             className="form-control"
@@ -186,7 +202,7 @@ function PostDriveway() {
                             onChange={handleUploadChange} />
                         <button type="button" onClick={handleUploadImage}>Upload</button>
                         <h1>Uploaded image will be displayed here</h1>
-                        <img src={url}/>
+                        <img src={url} />
                     </div>
 
                     <div className="flex-column flex-end">
