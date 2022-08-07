@@ -16,13 +16,19 @@ function SearchResults() {
         return <div>Loading...</div>;
     }
 
+    function filterDriveways() {
+        console.log("Driveways!!!: ", data)
+        return data?.driveways.filter((driveway) => driveway.isReserved === null) || []
+    }
+
     return (
         <div className="container my-1">
             <h2>Search Results (ZIP CODE : {zipcode})</h2>
             {data.driveways.length ? (
                 <div className="flex-row">
-                    {data.driveways.map((driveway) => (
-                        <DrivewayItem {...driveway}
+                    {/* {data.driveways.map((driveway) => ( */}
+                    {filterDriveways().map((driveway) => (
+                        <DrivewayItem {...driveway} key={driveway._id}
                         />
                     ))}
                 </div>

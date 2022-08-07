@@ -5,13 +5,9 @@ function DrivewayItem(item) {
     const {
         _id,
         address,
-        // description,
-        // rules,
         image,
         price,
         availableDate,
-        // startTime,
-        // endTime
     } = item;
 
     return (
@@ -27,7 +23,6 @@ function DrivewayItem(item) {
                 <div>Abailable on {availableDate}</div>
                 <span>${price} / hour</span>
             </div>
-            {/* <button onClick={addToCart}>Add to cart</button> */}
         </div>
     );
 }
