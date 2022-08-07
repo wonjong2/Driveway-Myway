@@ -13,10 +13,8 @@ function ProductList() {
   const { currentCategory } = state;
 
   const { loading, data, error } = useQuery(QUERY_ALL_DRIVEWAYS);
-  console.log(error)
 
   useEffect(() => {
-    console.log(data, loading)
     if (data) {
       dispatch({
         type: UPDATE_PRODUCTS,
@@ -57,9 +55,9 @@ function ProductList() {
               key={driveway._id}
               _id={driveway._id}
               image={driveway.image}
-              name={driveway.name}
+              address={driveway.address}
               price={driveway.price}
-              quantity={driveway.quantity}
+              zipcode={driveway.zipcode.zip}
             />
           ))}
         </div>

@@ -2,65 +2,43 @@ import React from "react";
 import { Link } from "react-router-dom";
 //import { pluralize } from "../../utils/helpers"
 import { useStoreContext } from "../../utils/GlobalState";
-import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
-import { idbPromise } from "../../utils/helpers";
 
 function Driveway({
   reserved,
   ...item
 }) {
   const [state, dispatch] = useStoreContext();
-  console.log(item)
+  //console.log(item)
 
   const {
     address,
-    description,
-    rules,
     image,
     _id,
     price,
     zipcode
   } = item;
 
-  const { cart } = state
-
-  const addToCart = () => {
-    const itemInCart = cart.find((cartItem) => cartItem._id === _id)
-    if (itemInCart) {
-      dispatch({
-        type: UPDATE_CART_QUANTITY,
-        _id: _id,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
-      });
-      idbPromise('cart', 'put', {
-        ...itemInCart,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
-      });
-    } else {
-      dispatch({
-        type: ADD_TO_CART,
-        driveway: { ...item, purchaseQuantity: 1 }
-      });
-      idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
-    }
-  }
-
   return (
-    <div className="card px-1 py-1">
-      <Link to={`/driveway/${_id}`}>
-        <img
-          alt={address}
-          src={`${image}`}
-        />
-        <p>{address}</p>
-      </Link>
-      <div>
-        <div>Found in: {zipcode}</div>
-        <span>${price}</span>
+    <div className="col-sm-12 col-md-6 col-lg-3">
+      <div className="card-group px-1 py-1">
+        <div className="card">
+        <Link to={`/driveway/${_id}`}>
+          <img className="card-img-top" alt={address} src={`${image}`}/>
+        </Link>
+        <div className="card-body text-left">
+          <h5 className="card-title" >{address}</h5>
+          <p className="card-text">Found in: {zipcode}</p>
+          <p className="card-text">Price: ${price} / hour</p>
+        </div>
+        <Link to={`/driveway/${_id}`}>
+        <div className="card-footer">
+        {!reserved && (
+          <small className="text-secondary">Click for More Details</small>
+        )}
+        </div>
+        </Link>
+        </div>
       </div>
-      {!reserved && (
-        <button onClick={addToCart}>Reserve this Parking Stall</button>
-      )}
     </div>
   );
 }

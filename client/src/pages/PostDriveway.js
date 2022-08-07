@@ -150,7 +150,7 @@ function PostDriveway() {
                     <div className="input-group mx-auto mb-2">
                         <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Photo</span>
                         <input
-                            type="text"
+                            type="file"
                             className="form-control"
                             aria-describedby="basic-addon1"
                             name="image"
