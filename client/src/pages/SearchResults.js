@@ -26,7 +26,6 @@ function SearchResults() {
             <h2>Search Results (ZIP CODE : {zipcode})</h2>
             {data.driveways.length ? (
                 <div className="flex-row">
-                    {/* {data.driveways.map((driveway) => ( */}
                     {filterDriveways().map((driveway) => (
                         <DrivewayItem {...driveway} key={driveway._id}
                         />
