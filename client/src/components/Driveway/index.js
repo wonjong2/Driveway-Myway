@@ -22,21 +22,25 @@ function Driveway({
     <div className="col-sm-12 col-md-6 col-lg-3">
       <div className="card-group px-1 py-1">
         <div className="card">
-        <Link to={`/driveway/${_id}`}>
-          <img className="card-img-top" alt={address} src={`${image}`}/>
-        </Link>
-        <div className="card-body text-left">
-          <h5 className="card-title" >{address}</h5>
-          <p className="card-text">Found in: {zipcode}</p>
-          <p className="card-text">Price: ${price} / hour</p>
-        </div>
-        <Link to={`/driveway/${_id}`}>
-        <div className="card-footer">
-        {!reserved && (
-          <small className="text-secondary">Click for More Details</small>
-        )}
-        </div>
-        </Link>
+          <Link to={`/driveway/${_id}`}>
+            <img
+              className="card-img-top"
+              alt={address}
+              src={image === 'default.jpg' ? `/images/${image}` : `${image}`}
+            />
+          </Link>
+          <div className="card-body text-left">
+            <h5 className="card-title" >{address}</h5>
+            <p className="card-text">Found in: {zipcode}</p>
+            <p className="card-text">Price: ${price} / hour</p>
+          </div>
+          <Link to={`/driveway/${_id}`}>
+            <div className="card-footer">
+              {!reserved && (
+                <small className="text-secondary">Click for More Details</small>
+              )}
+            </div>
+          </Link>
         </div>
       </div>
     </div>
