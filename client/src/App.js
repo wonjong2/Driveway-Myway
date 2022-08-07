@@ -86,11 +86,6 @@ function App() {
                 path="/post"
                 element={<PostDriveway />}
               />
-              {/* Adds Post Driveway menu */}
-              {/* <Route
-                path="/upload"
-                element={<UserUpload />}
-              /> */}
               {/* Results Page */}
               <Route
                 path="/results/:zipcode"

@@ -182,7 +182,7 @@ function PostDriveway() {
                             name="image"
                             id="image"
                             onChange={handleUploadChange} />
-                        <button onClick={handleUploadImage}>Upload</button>
+                        <button type="button" onClick={handleUploadImage}>Upload</button>
                         <h1>Uploaded image will be displayed here</h1>
                         <img src={url}/>
                     </div>
