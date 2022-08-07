@@ -27,6 +27,9 @@ import SearchResults from './pages/SearchResults';
 /* Details Page */
 import ClickDetails from './pages/ClickDetails';
 
+/* User Upload */
+// import UserUpload from './pages/UserUpload';
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });

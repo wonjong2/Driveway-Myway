@@ -26,8 +26,32 @@ function PostDriveway() {
         endTime: '',
         zipcode: '',
     });
-
+    const [fileimage, setImage ] = useState("");
+    const [ url, setUrl ] = useState("");
     const [postDriveway, { error }] = useMutation(POST_DRIVEWAY);
+
+    const handleUploadImage = () => {
+        const data = new FormData()
+        data.append("file", fileimage)
+        data.append("upload_preset", "image_upload")
+        data.append("cloud_name","dgmjt3z0f")
+        fetch(" https://api.cloudinary.com/v1_1/dgmjt3z0f/image/upload",{
+            method:"post",
+            body: data
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            console.log(data.url)
+
+            setUrl(data.url)
+            
+            setFormState({
+            ...formState,
+            image: data.url,
+        })
+        })
+        .catch(err => console.log(err));
+    }
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -38,7 +62,7 @@ function PostDriveway() {
         if (!token) {
             return false;
         }
-
+        console.log(formState.image)
         try {
             const dateValue = formState.availableDate.split('-');
             const date = new Date(dateValue[0], dateValue[1] - 1, dateValue[2]);
@@ -59,6 +83,10 @@ function PostDriveway() {
             [name]: value,
         });
     };
+    const handleUploadChange = (event) => {
+        setImage(event.target.files[0])
+    };
+
 
     return (
         <div className="container my-1">
@@ -155,7 +183,10 @@ function PostDriveway() {
                             aria-describedby="basic-addon1"
                             name="image"
                             id="image"
-                            onChange={handleChange} />
+                            onChange={handleUploadChange} />
+                        <button type="button" onClick={handleUploadImage}>Upload</button>
+                        <h1>Uploaded image will be displayed here</h1>
+                        <img src={url}/>
                     </div>
 
                     <div className="flex-column flex-end">
