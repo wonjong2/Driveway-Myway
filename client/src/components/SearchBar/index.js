@@ -2,8 +2,9 @@ import { Jumbotron, Container, Col, Form, Button, Row } from 'react-bootstrap';
 
 /* Results Page */
 import { Navigate, useNavigate } from 'react-router-dom';
+import './index.css'
 
-import {CompassFill} from 'react-bootstrap-icons'
+import {Compass} from 'react-bootstrap-icons'
 
 const SearchBar = () => {
   /* Results Page */
@@ -21,8 +22,8 @@ const SearchBar = () => {
     <>
       <Jumbotron>
         <Container fluid>
-          <Row>
-            <h3>Search a Zipcode</h3><CompassFill/>
+          <Row style={{'color': 'white'}}>
+            <h3 >Search a Zipcode</h3><Compass/>
           </Row>
           {/* Results Page */}
           <Form onSubmit={handleSearchBtn} >
