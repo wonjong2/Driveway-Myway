@@ -90,17 +90,26 @@ export const QUERY_USER = gql`
     user {
       firstName
       lastName
-      orders {
+      _id
+      email
+    }
+  }
+`;
+
+export const QUERY_CREATED_DRIVEWAYS = gql`
+  {
+    createddriveways {
+      _id
+      address
+      description
+      rules
+      image
+      price
+      availableDate
+      startTime
+      endTime
+      isReserved {
         _id
-        purchaseDate
-        products {
-          _id
-          name
-          description
-          price
-          quantity
-          image
-        }
       }
     }
   }

@@ -45,6 +45,11 @@ const drivewaySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: false
+  },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: false
   }
 });
 

@@ -20,6 +20,12 @@ export const ADD_RESERVATION = gql`
   }
 `;
 
+export const DELETE_DRIVEWAY = gql`
+  mutation deleteDriveway($id: ID!) {
+    deleteDriveway(id: $id)
+  }
+`;
+
 export const ADD_ORDER = gql`
   mutation addOrder($products: [ID]!) {
     addOrder(products: $products) {
