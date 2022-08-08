@@ -3,20 +3,11 @@ import { Link } from "react-router-dom";
 //import { pluralize } from "../../utils/helpers"
 import { useStoreContext } from "../../utils/GlobalState";
 
-function Driveway({
-  reserved,
-  ...item
-}) {
+function Driveway({ reserved, onDelete, ...item }) {
   const [state, dispatch] = useStoreContext();
   //console.log(item)
 
-  const {
-    address,
-    image,
-    _id,
-    price,
-    zipcode
-  } = item;
+  const { address, image, _id, price, zipcode } = item;
 
   return (
     <div className="col-sm-12 col-md-6 col-lg-3">
@@ -26,21 +17,32 @@ function Driveway({
             <img
               className="card-img-top"
               alt={address}
-              src={image === 'default.jpg' ? `/images/${image}` : `${image}`}
+              src={image === "default.jpg" ? `/images/${image}` : `${image}`}
             />
           </Link>
           <div className="card-body text-left">
-            <h5 className="card-title" >{address}</h5>
+            <h5 className="card-title">{address}</h5>
             <p className="card-text">Found in: {zipcode}</p>
             <p className="card-text">Price: ${price} / hour</p>
           </div>
-          <Link to={`/driveway/${_id}`}>
-            <div className="card-footer">
-              {!reserved && (
+          {!reserved && (
+            <Link to={`/driveway/${_id}`}>
+              <div className="card-footer">
                 <small className="text-secondary">Click for More Details</small>
-              )}
+              </div>
+            </Link>
+          )}
+          {onDelete && (
+            <div className="card-footer">
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={onDelete}
+              >
+                Delete Listing
+              </button>
             </div>
-          </Link>
+          )}
         </div>
       </div>
     </div>

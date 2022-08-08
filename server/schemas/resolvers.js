@@ -26,6 +26,16 @@ const resolvers = {
       }
       throw new AuthenticationError('Not logged in');
     },
+    createddriveways: async (parent, args, context) => {
+      if (context.user){
+        return await Driveway.find({
+          createdBy: {
+            $eq: context.user._id
+          }
+        }).populate('zipcode', 'isReserved');
+      }
+      throw new AuthenticationError('Not logged in');
+    },
     // Results Page
     driveways: async (parent, { zip }) => {
       const zipcodeId = await Zipcode.findOne({ zip });
@@ -152,10 +162,23 @@ const resolvers = {
     },
     postDriveway: async (parent, { address, description, rules, image, price, availableDate, startTime, endTime, zipcode }, context) => {
       const zipcodeId = await Zipcode.findOne({ zip: zipcode });
-      const driveway = await Driveway.create({ address, description, rules, image, price, availableDate, startTime, endTime, zipcode: zipcodeId });
+      const driveway = await Driveway.create({ 
+        address, description, rules, image, price, availableDate, startTime, endTime, zipcode: zipcodeId,
+         createdBy: context?.user?._id
+      });
       console.log("Driveway : ", driveway);
       return driveway._id;
     },
+    deleteDriveway: async (parent, args, context) => {
+      if (context.user) {
+         await Driveway.deleteOne({
+          createdBy: context.user._id,
+          _id: args.id
+        })
+        return true
+      }
+      throw new AuthenticationError('Not logged in');
+  },
   },
 };
 

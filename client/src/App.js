@@ -12,6 +12,7 @@ import Home from './pages/Home';
 import Detail from './pages/Detail';
 import NoMatch from './pages/NoMatch';
 import Reservation from './pages/Reservation';
+import ProfilePage from './pages/ProfilePage';
 
 import Navbar from './components/Navbar';
 import { StoreProvider } from './utils/GlobalState';
@@ -72,6 +73,10 @@ function App() {
               <Route
                 path="/orderHistory"
                 element={<OrderHistory />}
+              />
+                <Route
+                path="/profile"
+                element={<ProfilePage />}
               />
               <Route
                 path="/reservation/:id"
