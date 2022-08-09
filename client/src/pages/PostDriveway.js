@@ -201,10 +201,8 @@ function PostDriveway() {
                             id="image"
                             onChange={handleUploadChange} />
                         <button type="button" onClick={handleUploadImage}>Upload</button>
-                        <h1>Uploaded image will be displayed here</h1>
-                        <img src={url} />
                     </div>
-
+                    <img src={url} />
                     <div className="flex-column flex-end">
                         <button type="submit">Submit</button>
                     </div>
