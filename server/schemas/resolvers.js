@@ -6,7 +6,7 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 const resolvers = {
   Query: {
     zipcodes: async () => {
-      return await Zipcode.find(); s
+      return await Zipcode.find(); 
     },
 
     alldriveways: async (parent) => {
@@ -14,7 +14,8 @@ const resolvers = {
         isReserved: {
           $eq: null
         }
-      }).populate(['zipcode', 'isReserved']);
+        //$orderby: { createdAt: 1 }
+      }).sort({createdAt: -1}).populate(['zipcode', 'isReserved']);
     },
     mydriveways: async (parent, args, context) => {
       if (context.user){
