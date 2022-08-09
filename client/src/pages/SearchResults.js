@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_DRIVEWAYS } from '../utils/queries';
-import DrivewayItem from '../components/DrivewayItem'
+import Driveway from '../components/Driveway';
 import spinner from '../assets/spinner.gif';
 
 function SearchResults() {
@@ -27,8 +27,7 @@ function SearchResults() {
             {data.driveways.length ? (
                 <div className="flex-row">
                     {filterDriveways().map((driveway) => (
-                        <DrivewayItem {...driveway} key={driveway._id}
-                        />
+                        <Driveway {...driveway} key={driveway._id} />
                     ))}
                 </div>
             ) : (
