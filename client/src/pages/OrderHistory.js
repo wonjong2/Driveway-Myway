@@ -27,7 +27,7 @@ function OrderHistory() {
                   image={driveway.image}
                   name={driveway.name}
                   price={driveway.price}
-                  quantity={driveway.quantity}
+                  zipcode={driveway.zipcode.zip}
                   reserved
                 />
               </div>

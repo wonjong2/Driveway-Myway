@@ -22,7 +22,7 @@ const resolvers = {
           isReserved: {
             $eq: context.user._id
           }
-        }).populate('zipcode', 'isReserved');
+        }).populate(['zipcode', 'isReserved']);
       }
       throw new AuthenticationError('Not logged in');
     },
@@ -32,7 +32,7 @@ const resolvers = {
           createdBy: {
             $eq: context.user._id
           }
-        }).populate('zipcode', 'isReserved');
+        }).populate(['zipcode', 'isReserved']);
       }
       throw new AuthenticationError('Not logged in');
     },
@@ -59,7 +59,7 @@ const resolvers = {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
           path: 'reservations.driveway',
-          populate: 'zipcode'
+          populate: ['zipcode']
         });
 
         return user.reservations.id(_id);
