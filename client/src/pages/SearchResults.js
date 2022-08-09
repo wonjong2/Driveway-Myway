@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_DRIVEWAYS } from '../utils/queries';
-import DrivewayItem from '../components/DrivewayItem'
+import Driveway from '../components/Driveway';
 import spinner from '../assets/spinner.gif';
 
 function SearchResults() {
@@ -16,14 +16,18 @@ function SearchResults() {
         return <div>Loading...</div>;
     }
 
+    function filterDriveways() {
+        console.log("Driveways!!!: ", data)
+        return data?.driveways.filter((driveway) => driveway.isReserved === null) || []
+    }
+
     return (
         <div className="container my-1">
             <h2>Search Results (ZIP CODE : {zipcode})</h2>
             {data.driveways.length ? (
                 <div className="flex-row">
-                    {data.driveways.map((driveway) => (
-                        <DrivewayItem {...driveway}
-                        />
+                    {filterDriveways().map((driveway) => (
+                        <Driveway {...driveway} key={driveway._id} />
                     ))}
                 </div>
             ) : (

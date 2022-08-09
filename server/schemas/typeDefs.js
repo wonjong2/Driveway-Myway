@@ -57,6 +57,8 @@ const typeDefs = gql`
   type Query {
     zipcodes: [Zipcode]
     alldriveways: [Driveway]
+    mydriveways: [Driveway]
+    createddriveways: [Driveway]
     driveways(zip: Int!): [Driveway]
     user: User
     reservation(_id: ID!): Reservation
@@ -70,6 +72,7 @@ const typeDefs = gql`
     addReservation(driveway: ID!): Reservation
     updateUser(firstName: String, lastName: String, email: String, password: String): User
     login(email: String!, password: String!): Auth
+    deleteDriveway(id: ID!): Boolean
     postDriveway(address: String!, description: String, rules: String, image: String, price: Float!, availableDate: Date, startTime: String!, endTime: String!, zipcode: ID!): Driveway
   }
 `;

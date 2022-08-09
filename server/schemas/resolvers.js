@@ -2,13 +2,11 @@ const { AuthenticationError } = require('apollo-server-express');
 const { User, Reservation, Driveway, Zipcode } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
-// /* Adds Post Driveway menu */
-// const { GraphQLDate } = require('graphql-iso-date');
 
 const resolvers = {
   Query: {
     zipcodes: async () => {
-      return await Zipcode.find(); s
+      return await Zipcode.find(); 
     },
 
     alldriveways: async (parent) => {
@@ -16,7 +14,28 @@ const resolvers = {
         isReserved: {
           $eq: null
         }
-      }).populate('zipcode', 'isReserved');
+        //$orderby: { createdAt: 1 }
+      }).sort({createdAt: -1}).populate(['zipcode', 'isReserved']);
+    },
+    mydriveways: async (parent, args, context) => {
+      if (context.user){
+        return await Driveway.find({
+          isReserved: {
+            $eq: context.user._id
+          }
+        }).populate(['zipcode', 'isReserved']);
+      }
+      throw new AuthenticationError('Not logged in');
+    },
+    createddriveways: async (parent, args, context) => {
+      if (context.user){
+        return await Driveway.find({
+          createdBy: {
+            $eq: context.user._id
+          }
+        }).populate(['zipcode', 'isReserved']);
+      }
+      throw new AuthenticationError('Not logged in');
     },
     // Results Page
     driveways: async (parent, { zip }) => {
@@ -41,7 +60,7 @@ const resolvers = {
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
           path: 'reservations.driveway',
-          populate: 'zipcode'
+          populate: ['zipcode']
         });
 
         return user.reservations.id(_id);
@@ -144,12 +163,24 @@ const resolvers = {
     },
     postDriveway: async (parent, { address, description, rules, image, price, availableDate, startTime, endTime, zipcode }, context) => {
       const zipcodeId = await Zipcode.findOne({ zip: zipcode });
-      const driveway = await Driveway.create({ address, description, rules, image, price, availableDate, startTime, endTime, zipcode: zipcodeId });
+      const driveway = await Driveway.create({ 
+        address, description, rules, image, price, availableDate, startTime, endTime, zipcode: zipcodeId,
+         createdBy: context?.user?._id
+      });
       console.log("Driveway : ", driveway);
       return driveway._id;
     },
+    deleteDriveway: async (parent, args, context) => {
+      if (context.user) {
+         await Driveway.deleteOne({
+          createdBy: context.user._id,
+          _id: args.id
+        })
+        return true
+      }
+      throw new AuthenticationError('Not logged in');
   },
-  // Date: GraphQLDate
+  },
 };
 
 module.exports = resolvers;

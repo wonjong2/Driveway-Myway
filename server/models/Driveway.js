@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-//const Zipcode = require('./Zipcode');
+const { timeStamp } = require('../utils/date');
 
 const { Schema } = mongoose;
 const User = require('./User')
@@ -25,7 +25,8 @@ const drivewaySchema = new Schema({
   },
   availableDate: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    get: timeStamp,
   },
   startTime: {
     type: String,
@@ -44,7 +45,14 @@ const drivewaySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: false
+  },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: false
   }
+}, {
+  timestamps: true
 });
 
 const Driveway = mongoose.model('Driveway', drivewaySchema);

@@ -22,15 +22,68 @@ function PostDriveway() {
         image: '',
         price: '',
         availableDate: '',
-        stratTime: '',
+        startTime: '',
         endTime: '',
         zipcode: '',
     });
-
+    const [fileimage, setImage] = useState("");
+    const [url, setUrl] = useState("");
     const [postDriveway, { error }] = useMutation(POST_DRIVEWAY);
+
+    const handleUploadImage = () => {
+        const data = new FormData()
+        data.append("file", fileimage)
+        data.append("upload_preset", "image_upload")
+        data.append("cloud_name", "dgmjt3z0f")
+        fetch(" https://api.cloudinary.com/v1_1/dgmjt3z0f/image/upload", {
+            method: "post",
+            body: data
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                console.log(data.url)
+
+                setUrl(data.url)
+
+                setFormState({
+                    ...formState,
+                    image: data.url,
+                })
+            })
+            .catch(err => console.log(err));
+    }
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
+
+        function convert24To12(timeString) {
+            const time = timeString.split(':');
+
+            if (time[0] === '12') {
+                return `${time[0]}:${time[1]} PM`;
+            } else if (time[0] > '12') {
+                return `${time[0] - 12}:${time[1]} PM`;
+            } else {
+                return `${time[0]}:${time[1]} AM`;
+            }
+        };
+
+        if (
+            !(
+                formState.address &&
+                formState.price &&
+                formState.availableDate &&
+                formState.startTime &&
+                formState.endTime &&
+                formState.zipcode
+            )
+        ) {
+            return alert("Please enter all required information that has * mark");
+        }
+
+        if (formState.endTime <= formState.startTime) {
+            return alert("The end time must be later than the start time");
+        }
 
         // get token
         const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -38,10 +91,12 @@ function PostDriveway() {
         if (!token) {
             return false;
         }
-
+        console.log(formState.image)
         try {
+            const dateValue = formState.availableDate.split('-');
+            const date = new Date(dateValue[0], dateValue[1] - 1, dateValue[2]);
             const mutationRes = await postDriveway({
-                variables: { ...formState, price: Number(formState.price), image: formState.image ? formState.image : 'default.jpg' }
+                variables: { ...formState, price: Number(formState.price), availableDate: date, image: formState.image ? formState.image : 'default.jpg', startTime: convert24To12(formState.startTime), endTime: convert24To12(formState.endTime) }
             });
             window.location.assign('/');
 
@@ -57,6 +112,9 @@ function PostDriveway() {
             [name]: value,
         });
     };
+    const handleUploadChange = (event) => {
+        setImage(event.target.files[0])
+    };
 
     return (
         <div className="container my-1">
@@ -64,12 +122,12 @@ function PostDriveway() {
             <div className="d-flex flex-column align-items-center">
                 <form style={styles.form} onSubmit={handleFormSubmit}>
                     <div className="input-group mx-auto mt-3 mb-2">
-                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Address</span>
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">*Address</span>
                         <input
                             type="text"
                             className="form-control"
                             placeholder="Street, City, State"
-                            // aria-describedby="basic-addon1"
+                            aria-describedby="basic-addon1"
                             name="address"
                             id="address"
                             onChange={handleChange} />
@@ -96,7 +154,7 @@ function PostDriveway() {
                             onChange={handleChange} />
                     </div>
                     <div className="input-group mx-auto mb-2">
-                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Price ($/hour)</span>
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">*Price ($/hour)</span>
                         <input
                             type="number"
                             className="form-control"
@@ -106,7 +164,7 @@ function PostDriveway() {
                             onChange={handleChange} />
                     </div>
                     <div className="input-group mx-auto mb-2">
-                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Available date</span>
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">*Available date</span>
                         <input
                             type="date"
                             className="form-control"
@@ -116,7 +174,7 @@ function PostDriveway() {
                             onChange={handleChange} />
                     </div>
                     <div className="input-group mx-auto mb-2">
-                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Start Time</span>
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">*Start Time</span>
                         <input
                             type="time"
                             className="form-control"
@@ -126,7 +184,7 @@ function PostDriveway() {
                             onChange={handleChange} />
                     </div>
                     <div className="input-group mx-auto mb-2">
-                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">End Time</span>
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">*End Time</span>
                         <input
                             type="time"
                             className="form-control"
@@ -136,7 +194,7 @@ function PostDriveway() {
                             onChange={handleChange} />
                     </div>
                     <div className="input-group mx-auto mb-2">
-                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">ZIP Code</span>
+                        <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">*ZIP Code</span>
                         <input
                             type="number"
                             className="form-control"
@@ -148,14 +206,15 @@ function PostDriveway() {
                     <div className="input-group mx-auto mb-2">
                         <span className="input-group-text" style={styles.inputLabel} id="basic-addon1">Photo</span>
                         <input
-                            type="text"
+                            type="file"
                             className="form-control"
                             aria-describedby="basic-addon1"
                             name="image"
                             id="image"
-                            onChange={handleChange} />
+                            onChange={handleUploadChange} />
+                        <button type="button" onClick={handleUploadImage}>Upload</button>
                     </div>
-
+                    <img src={url} />
                     <div className="flex-column flex-end">
                         <button type="submit">Submit</button>
                     </div>
