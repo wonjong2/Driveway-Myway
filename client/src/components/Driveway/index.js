@@ -10,7 +10,7 @@ function Driveway({ reserved, onDelete, ...item }) {
   const { address, image, _id, price, zipcode } = item;
 
   return (
-    <div className="col-sm-12 col-md-6 col-lg-3" style={{'font-family': 'Lato'}}>
+    <div className="col-sm-12 col-md-6 col-lg-3" style={{'font-family': 'Montserrat'}}>
       <div className="card-group px-1 py-1">
         <div className="card">
           <Link to={`/driveway/${_id}`}>
