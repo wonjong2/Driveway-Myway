@@ -7,6 +7,8 @@ import { QUERY_SINGLE_DRIVEWAY } from '../utils/queries';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Button, Row, Col } from 'react-bootstrap';
 import GoogleMapReact from 'google-map-react';
+import {FcBookmark} from 'react-icons/fc'
+
 
 function ClickDetails() {
   // const [render, setRender] = useState(true)
@@ -24,8 +26,7 @@ function ClickDetails() {
     console.log("Searched Data!!!", data);
   }
 
-  const MapMarker = ({ text }) => <div>{text}</div>;
-
+  const Marker = ({ text }) => <div><h2 className="icon-red"><FcBookmark/></h2></div>;
 
   const handleReserveBtn = async (event) => {
     event.preventDefault();
@@ -41,7 +42,7 @@ function ClickDetails() {
     zoom: 16
   };
   return (
-    <div className="container" style={{ height: '60vh', width: '100%' }}>
+    <div className="container" style={{ height: '40vh', width: '100%' }}>
       <h2>Driveway Details:</h2>
       <div className="card w-100">
         <div className="card-header">
@@ -53,13 +54,13 @@ function ClickDetails() {
           <Row>
             <h3>{data.drivewayDetail.address}</h3>
           </Row>
-          <Row>
+          <Row className="justify-content-center">
             <h4>{data.drivewayDetail.zipcode.city}, {data.drivewayDetail.zipcode.state_id}</h4>
           </Row>
-          <Row>
+          <Row className="justify-content-center">
             <p className="float-left">Available on: {data.drivewayDetail.availableDate}</p>
           </Row>
-          <Row>
+          <Row className="justify-content-center">
             <p className="float-left">Price: ${data.drivewayDetail.price} / hour</p>
           </Row>
         </div>
@@ -83,17 +84,16 @@ function ClickDetails() {
           </Row>
         </div>
       </div>
-      <div style={{ height: '50vh', width: '100%' }}>
+      <div style={{ height: '60vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_API_KEY }}
           defaultCenter={defaultProps.center}
           defaultZoom={defaultProps.zoom}
         >
-          <MapMarker
-            lat={data.drivewayDetail.zipcode.lat}
-            lng={data.drivewayDetail.zipcode.lng}
-            text="My Marker"
-          />
+          <Marker
+          lat={data.drivewayDetail.zipcode.lat}
+          lng={data.drivewayDetail.zipcode.lng}
+        />
         </GoogleMapReact>
       </div>
     </div>
