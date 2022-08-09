@@ -31,6 +31,7 @@ query mydriveways {
     description
     zipcode {
       _id
+      zip
     }
     rules
     image

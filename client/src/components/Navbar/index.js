@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import Auth from "../../utils/auth";
 import { Link } from "react-router-dom";
 
+//importing icons
+import {Search, Key, ClockHistory, Person, Lock, Calendar2Plus} from 'react-bootstrap-icons'
+
 import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
 
 import SignUpForm from '../Signup';
 import LoginForm from '../Login';
+
 
 function AppNavbar() {
 
@@ -17,27 +21,31 @@ function AppNavbar() {
       <Navbar bg='light' variant='light' expand='lg'>
         <Container fluid>
           <Navbar.Brand >
-            DriveWay MyWay - <em>Take a break and find a spot</em>
+            DriveWay MyWay - <em>Your destination awaits</em>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='navbar' />
           <Navbar.Collapse id='navbar'>
             <Nav className='ml-auto'>
               <Nav.Link as={Link} to='/'>
-                Search For a Parking Spot
+                <Search/> Search For a Parking Spot
               </Nav.Link>
               {/* if user is logged in show oderHistory and logout */}
               {Auth.loggedIn() ? (
                 <>
                   <Nav.Link as={Link} to='/orderHistory'>
-                    Order History
+                    <ClockHistory/> Order History
                   </Nav.Link>
                   {/* Adds Post Driveway menu */}
-                  <Nav.Link as={Link} to='/post'>Post Driveway</Nav.Link>
-                  <Nav.Link as={Link} to='/profile'>Profile</Nav.Link>
-                  <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+                  <Nav.Link as={Link} to='/post'>
+                    <Calendar2Plus/> Post Driveway</Nav.Link>
+                  <Nav.Link as={Link} to='/profile'>
+                    <Person/> Profile</Nav.Link>
+                  <Nav.Link onClick={Auth.logout}>
+                    <Lock/> Logout</Nav.Link>
                 </>
               ) : (
-                <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
+                <Nav.Link onClick={() => setShowModal(true)}>
+                  <Key /> Login/Sign Up</Nav.Link>
               )}
             </Nav>
           </Navbar.Collapse>

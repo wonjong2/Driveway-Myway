@@ -6,7 +6,7 @@ import SearchBar from "../components/SearchBar";
 
 const Home = () => {
   return (
-    <div className="container">
+    <div className="container bg-light bg-gradient">
       <SearchBar />
       <DrivewayList />
     </div>
