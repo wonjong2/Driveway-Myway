@@ -28,8 +28,8 @@ import SearchResults from './pages/SearchResults';
 /* Details Page */
 import ClickDetails from './pages/ClickDetails';
 
-/* User Upload */
-// import UserUpload from './pages/UserUpload';
+/* background image*/
+import background from './assets/city.jpg'
 
 const httpLink = createHttpLink({
   uri: '/graphql',
