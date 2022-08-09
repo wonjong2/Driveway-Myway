@@ -33,12 +33,12 @@ const SearchBar = () => {
                   name='searchInput'
                   type='text'
                   size='md'
-                  placeholder='Search for a zipcode'
+                  placeholder='Find a parking spot'
                 /> 
               </Col>
               <Col sm={12}>
                 <Button type='submit' variant='success' size='md'>
-                  Submit Search
+                  Submit
                 </Button>
               </Col>
             </Row>
