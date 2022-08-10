@@ -26,6 +26,36 @@ export const DELETE_DRIVEWAY = gql`
   }
 `;
 
+export const UPDATE_DRIVEWAY = gql`
+  mutation updateDriveway(
+    $_id: ID!
+    $address: String!
+    $description: String
+    $rules: String
+    $image: String
+    $price: Float!
+    $availableDate: Date
+    $startTime: String!
+    $endTime: String!
+    $zipcode: Int
+  ) {
+    updateDriveway(
+      _id: $_id
+      address: $address
+      description: $description
+      rules: $rules
+      image: $image
+      price: $price
+      availableDate: $availableDate
+      startTime: $startTime
+      endTime: $endTime
+      zipcode: $zipcode
+    ) {
+        _id
+      }
+  }
+`;
+
 export const ADD_ORDER = gql`
   mutation addOrder($products: [ID]!) {
     addOrder(products: $products) {

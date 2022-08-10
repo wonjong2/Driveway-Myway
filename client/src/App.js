@@ -13,6 +13,7 @@ import Detail from './pages/Detail';
 import NoMatch from './pages/NoMatch';
 import Reservation from './pages/Reservation';
 import ProfilePage from './pages/ProfilePage';
+import EditDriveway from './pages/EditDriveway';
 
 import Navbar from './components/Navbar';
 import { StoreProvider } from './utils/GlobalState';
@@ -90,6 +91,11 @@ function App() {
               <Route
                 path="/post"
                 element={<PostDriveway />}
+              />
+
+              <Route
+                path="/edit/:id"
+                element={<EditDriveway />}
               />
               {/* Results Page */}
               <Route
