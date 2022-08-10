@@ -7,7 +7,6 @@ const resolvers = {
   Query: {
     zipcodes: async () => {
       return await Zipcode.find();
-      s;
     },
 
     alldriveways: async (parent) => {
@@ -15,7 +14,7 @@ const resolvers = {
         isReserved: {
           $eq: null,
         },
-      }).populate(["zipcode", "isReserved"]);
+      }).sort({createdAt: -1}).populate(['zipcode', 'isReserved']);
     },
     mydriveways: async (parent, args, context) => {
       if (context.user) {

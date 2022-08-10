@@ -51,6 +51,8 @@ const drivewaySchema = new Schema({
     ref: 'User',
     required: false
   }
+}, {
+  timestamps: true
 });
 
 const Driveway = mongoose.model('Driveway', drivewaySchema);

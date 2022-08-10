@@ -56,6 +56,18 @@ function PostDriveway() {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
+        function convert24To12(timeString) {
+            const time = timeString.split(':');
+
+            if (time[0] === '12') {
+                return `${time[0]}:${time[1]} PM`;
+            } else if (time[0] > '12') {
+                return `${time[0] - 12}:${time[1]} PM`;
+            } else {
+                return `${time[0]}:${time[1]} AM`;
+            }
+        };
+
         if (
             !(
                 formState.address &&
@@ -84,7 +96,7 @@ function PostDriveway() {
             const dateValue = formState.availableDate.split('-');
             const date = new Date(dateValue[0], dateValue[1] - 1, dateValue[2]);
             const mutationRes = await postDriveway({
-                variables: { ...formState, price: Number(formState.price), availableDate: date, image: formState.image ? formState.image : 'default.jpg' }
+                variables: { ...formState, price: Number(formState.price), availableDate: date, image: formState.image ? formState.image : 'default.jpg', startTime: convert24To12(formState.startTime), endTime: convert24To12(formState.endTime) }
             });
             window.location.assign('/');
 
@@ -201,10 +213,8 @@ function PostDriveway() {
                             id="image"
                             onChange={handleUploadChange} />
                         <button type="button" onClick={handleUploadImage}>Upload</button>
-                        <h1>Uploaded image will be displayed here</h1>
-                        <img src={url} />
                     </div>
-
+                    <img src={url} />
                     <div className="flex-column flex-end">
                         <button type="submit">Submit</button>
                     </div>
