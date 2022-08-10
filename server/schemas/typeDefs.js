@@ -74,6 +74,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     deleteDriveway(id: ID!): Boolean
     updateDriveway(
+    _id: ID!
       address: String!,
       description: String,
       rules: String,
@@ -82,6 +83,7 @@ const typeDefs = gql`
       availableDate: Date,
       startTime: String,
       endTime: String
+      zipcode: Int
     ): Driveway
     postDriveway(address: String!, description: String, rules: String, image: String, price: Float!, availableDate: Date, startTime: String!, endTime: String!, zipcode: ID!): Driveway
   }

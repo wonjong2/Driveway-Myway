@@ -31,12 +31,7 @@ const ProfilePage = () => {
             quantity={driveway.quantity}
             reserved
             onUpdate={async () => {
-              // await deleteDriveway({
-              //   variables: {
-              //     id: driveway._id,
-              //   },
-              // });
-              // refetch();
+              window.location.assign(`/edit/${driveway._id}`)
             }}
             onDelete={async () => {
               await deleteDriveway({

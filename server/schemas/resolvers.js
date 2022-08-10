@@ -205,11 +205,13 @@ const resolvers = {
     },
     updateDriveway: async (parent, args, context) => {
       if (context.user) {
+        const zipcodeId = await Zipcode.findOne({ zip: args.zipcode });
         await Driveway.findOneAndUpdate({
           createdBy: context.user._id,
           _id: args._id,
         }, {
           ...args,
+          zipcode: zipcodeId,
           createdBy: context.user._id
         });
         return true;
