@@ -73,6 +73,16 @@ const typeDefs = gql`
     updateUser(firstName: String, lastName: String, email: String, password: String): User
     login(email: String!, password: String!): Auth
     deleteDriveway(id: ID!): Boolean
+    updateDriveway(
+      address: String!,
+      description: String,
+      rules: String,
+      image: String,
+      price: Float,
+      availableDate: Date,
+      startTime: String,
+      endTime: String
+    ): Driveway
     postDriveway(address: String!, description: String, rules: String, image: String, price: Float!, availableDate: Date, startTime: String!, endTime: String!, zipcode: ID!): Driveway
   }
 `;

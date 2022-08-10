@@ -26,6 +26,12 @@ export const DELETE_DRIVEWAY = gql`
   }
 `;
 
+export const UPDATE_DRIVEWAY = gql`
+  mutation updateDriveway($driveway: Driveway) {
+    updateDriveway(driveway: $driveway)
+  }
+`;
+
 export const ADD_ORDER = gql`
   mutation addOrder($products: [ID]!) {
     addOrder(products: $products) {
