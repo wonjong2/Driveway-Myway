@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-// import Auth from '../utils/auth'
+
+import CommentList from '../components/CommentList';
+import CommentForm from '../components/CommentForm';
+
 import { QUERY_SINGLE_DRIVEWAY } from '../utils/queries';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Button, Row, Col } from 'react-bootstrap';
@@ -23,7 +26,8 @@ function ClickDetails() {
   if (loading) {
     return <div>Loading...</div>;
   } else {
-    console.log("Searched Data!!!", data);
+    console.log("Searched Detail Data!!!", data);
+    console.log("driveway id", data.drivewayDetail._id)
   }
 
   const Marker = ({ text }) => <div><h2 className="icon-red"><FcBookmark/></h2></div>;
@@ -84,7 +88,7 @@ function ClickDetails() {
           </Row>
         </div>
       </div>
-      <div style={{ height: '60vh', width: '100%' }}>
+      <div style={{ height: '40vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_API_KEY }}
           defaultCenter={defaultProps.center}
@@ -95,6 +99,13 @@ function ClickDetails() {
           lng={data.drivewayDetail.zipcode.lng}
         />
         </GoogleMapReact>
+      </div>
+      <div className="my-5">
+        <CommentList
+        comments={data.drivewayDetail.comments} />
+      </div>
+      <div className="my-5">
+        <CommentForm drivewayId={data.drivewayDetail._id} />
       </div>
     </div>
   );

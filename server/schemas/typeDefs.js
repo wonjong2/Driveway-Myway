@@ -25,6 +25,13 @@ const typeDefs = gql`
     endTime: String
     zipcode: Zipcode!
     isReserved: User
+    comments: [Comment]!
+  }
+
+  type Comment {
+    _id: ID
+    commentText: String
+    createdAt: String
   }
   
   type Reservation {
@@ -65,6 +72,7 @@ const typeDefs = gql`
     checkout(products: [ID]!): Checkout
     checkoutIntent(products: [ID]!): CheckoutIntent
     drivewayDetail(_id: ID!): Driveway 
+    me: User
   }
 
   type Mutation {
@@ -86,6 +94,7 @@ const typeDefs = gql`
       zipcode: Int
     ): Driveway
     postDriveway(address: String!, description: String, rules: String, image: String, price: Float!, availableDate: Date, startTime: String!, endTime: String!, zipcode: ID!): Driveway
+    addComment(drivewayId: ID!, commentText: String!): Driveway
   }
 `;
 
