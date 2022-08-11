@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 //import { pluralize } from "../../utils/helpers"
 import { useStoreContext } from "../../utils/GlobalState";
 
-function Driveway({ reserved, onDelete, ...item }) {
+function Driveway({ reserved, onDelete, onUpdate, ...item }) {
   const [state, dispatch] = useStoreContext();
   //console.log(item)
 
@@ -31,6 +31,17 @@ function Driveway({ reserved, onDelete, ...item }) {
                 <small className="text-secondary">Click for More Details</small>
               </div>
             </Link>
+          )}
+          {onUpdate && (
+            <div className="card-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={onUpdate}
+              >
+                Update Listing
+              </button>
+            </div>
           )}
           {onDelete && (
             <div className="card-footer">
