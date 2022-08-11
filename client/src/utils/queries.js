@@ -112,6 +112,9 @@ export const QUERY_CREATED_DRIVEWAYS = gql`
       isReserved {
         _id
       }
+      zipcode {
+        zip
+      }
     }
   }
 `;

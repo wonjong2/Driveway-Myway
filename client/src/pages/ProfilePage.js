@@ -28,7 +28,7 @@ const ProfilePage = () => {
             image={driveway.image}
             name={driveway.name}
             price={driveway.price}
-            quantity={driveway.quantity}
+            zipcode={driveway.zipcode.zip}
             reserved
             onUpdate={async () => {
               window.location.assign(`/edit/${driveway._id}`)
