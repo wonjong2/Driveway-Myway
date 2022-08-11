@@ -55,7 +55,7 @@ const CommentForm = ({ drivewayId }) => {
           ></textarea>
         </div>
         <div>
-          <button className="btn btn-primary" type="submit">
+          <button className="btn btn-warning" type="submit">
             Post
           </button>
         </div>
