@@ -112,6 +112,9 @@ export const QUERY_CREATED_DRIVEWAYS = gql`
       isReserved {
         _id
       }
+      zipcode {
+        zip
+      }
     }
   }
 `;
@@ -156,6 +159,11 @@ export const QUERY_SINGLE_DRIVEWAY = gql`
         lng
         city
         state_id
+      }
+      comments {
+        _id
+        commentText
+        createdAt
       }
     }
   }

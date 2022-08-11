@@ -24,7 +24,7 @@ function AppNavbar() {
             DriveWay MyWay - <em>Your destination awaits</em>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='navbar' />
-          <Navbar.Collapse id='navbar'>
+          <Navbar.Collapse id='navbar' style={{'font-family': 'Arial'}}>
             <Nav className='ml-auto'>
               <Nav.Link as={Link} to='/'>
                 <Search/> Search For a Parking Spot
@@ -61,12 +61,12 @@ function AppNavbar() {
         <Tab.Container defaultActiveKey='login'>
           <Modal.Header closeButton>
             <Modal.Title id='signup-modal'>
-              <Nav variant='pills'>
+              <Nav variant='tabs'>
                 <Nav.Item>
-                  <Nav.Link eventKey='login'>Login</Nav.Link>
+                  <Nav.Link eventKey='login' className="text-success">Login</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey='signup'>Sign Up</Nav.Link>
+                  <Nav.Link eventKey='signup' className="text-success">Sign Up</Nav.Link>
                 </Nav.Item>
               </Nav>
             </Modal.Title>

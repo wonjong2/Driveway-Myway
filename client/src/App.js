@@ -9,10 +9,10 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 import Home from './pages/Home';
-import Detail from './pages/Detail';
 import NoMatch from './pages/NoMatch';
 import Reservation from './pages/Reservation';
 import ProfilePage from './pages/ProfilePage';
+import EditDriveway from './pages/EditDriveway';
 
 import Navbar from './components/Navbar';
 import { StoreProvider } from './utils/GlobalState';
@@ -28,8 +28,8 @@ import SearchResults from './pages/SearchResults';
 /* Details Page */
 import ClickDetails from './pages/ClickDetails';
 
-/* User Upload */
-// import UserUpload from './pages/UserUpload';
+/* background image*/
+import background from './assets/city.jpg'
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -74,7 +74,7 @@ function App() {
                 path="/orderHistory"
                 element={<OrderHistory />}
               />
-                <Route
+              <Route
                 path="/profile"
                 element={<ProfilePage />}
               />
@@ -90,6 +90,11 @@ function App() {
               <Route
                 path="/post"
                 element={<PostDriveway />}
+              />
+
+              <Route
+                path="/edit/:id"
+                element={<EditDriveway />}
               />
               {/* Results Page */}
               <Route

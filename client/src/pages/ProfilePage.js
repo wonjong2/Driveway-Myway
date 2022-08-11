@@ -1,13 +1,14 @@
 import React from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_USER, QUERY_CREATED_DRIVEWAYS } from "../utils/queries";
-import { DELETE_DRIVEWAY } from "../utils/mutations";
+import { DELETE_DRIVEWAY, UPDATE_DRIVEWAY } from "../utils/mutations";
 import Driveway from "../components/Driveway";
 
 const ProfilePage = () => {
   const { data: userData } = useQuery(QUERY_USER);
   const { data: drivewaysData, refetch } = useQuery(QUERY_CREATED_DRIVEWAYS);
   const [deleteDriveway] = useMutation(DELETE_DRIVEWAY);
+  const [updateDriveway] = useMutation(UPDATE_DRIVEWAY);
   const user = userData?.user;
   const driveways = drivewaysData?.createddriveways ?? [];
 
@@ -27,8 +28,11 @@ const ProfilePage = () => {
             image={driveway.image}
             name={driveway.name}
             price={driveway.price}
-            quantity={driveway.quantity}
+            zipcode={driveway.zipcode.zip}
             reserved
+            onUpdate={async () => {
+              window.location.assign(`/edit/${driveway._id}`)
+            }}
             onDelete={async () => {
               await deleteDriveway({
                 variables: {
@@ -39,6 +43,41 @@ const ProfilePage = () => {
             }}
           />
         ))}
+      </div>
+      <div
+        className="modal fade show"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex="-1"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">
+                Modal title
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">...</div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" className="btn btn-primary">
+                Understood
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
