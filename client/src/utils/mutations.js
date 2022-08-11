@@ -123,3 +123,16 @@ export const POST_DRIVEWAY = gql`
     }
   }
 `;
+// Comments for Driveway Details Page
+export const ADD_COMMENT = gql`
+  mutation addComment($drivewayId: ID!, $commentText: String!) {
+    addComment(drivewayId: $drivewayId, commentText: $commentText) {
+      _id
+      comments {
+        _id
+        commentText
+        createdAt
+      }
+    }
+  }
+`;

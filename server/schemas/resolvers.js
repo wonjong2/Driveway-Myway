@@ -217,6 +217,17 @@ const resolvers = {
         return true;
       }
     },
+    addComment: async (parent, { drivewayId, commentText }) => {
+      return Driveway.findOneAndUpdate(
+        { _id: drivewayId },
+        {
+          $addToSet: { comments: { commentText } },
+        },
+        {
+          new: true,
+        }
+      );
+    },
   },
 };
 

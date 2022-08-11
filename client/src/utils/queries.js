@@ -157,6 +157,11 @@ export const QUERY_SINGLE_DRIVEWAY = gql`
         city
         state_id
       }
+      comments {
+        _id
+        commentText
+        createdAt
+      }
     }
   }
 `;
