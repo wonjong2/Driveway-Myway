@@ -47,7 +47,7 @@ function ProductList() {
 
   return (
     <div className="my-2">
-      <h2 style={{'font-family': 'Calibri'}}>Available Driveways:</h2>
+      <h2 style={{'font-family': 'Roboto'}}><b>Available Driveways:</b></h2>
       {state.products.length ? (
         <div className="flex-row">
           {filterProducts().map((driveway) => (
